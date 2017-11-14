@@ -18,7 +18,6 @@ public class Authorization {
     private String iId;
     private String sUsername;
     private String sPreToken;
-
     public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, InvaildOperationException, PasswordNotCorrectException, AESEncryptException {
         KeyValueDatabase kvConn = new KeyValueDatabase(PreAuthorizationGson.sessionPrefix); //打开键值数据库
         /* 判断是否进行预授权，预授权时应以用户名为值向键值数据库
