@@ -126,6 +126,5 @@ public class RelationalDatabase {
         } catch (SQLException e) {
             throw new RelationalDatabaseException(e);
         }
-
     }
 }
