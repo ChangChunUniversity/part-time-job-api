@@ -1,0 +1,8 @@
+.idea
+*.iml
+out
+gen
+.DS_Store
+!.idea/dataSources/*
+out/
+web/.DS_Store
