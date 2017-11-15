@@ -31,4 +31,13 @@
         <url-pattern>/api/user/reg</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>doModifyPwd</servlet-name>
+        <servlet-class>com.proj.api.user.Servlet.doModifyPwd</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doModifyPwd</servlet-name>
+        <url-pattern>/api/user/modify_pwd</url-pattern>
+    </servlet-mapping>
+
 </web-app>
