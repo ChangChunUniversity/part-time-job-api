@@ -13,6 +13,7 @@
         <url-pattern>/api/*</url-pattern>
     </filter-mapping>
 
+    <!-- ========== User ========== -->
     <servlet>
         <servlet-name>doAuth</servlet-name>
         <servlet-class>com.proj.api.user.Servlet.doAuth</servlet-class>
@@ -39,5 +40,6 @@
         <servlet-name>doModifyPwd</servlet-name>
         <url-pattern>/api/user/modify_pwd</url-pattern>
     </servlet-mapping>
+    <!-- ========== User ========== -->
 
 </web-app>
