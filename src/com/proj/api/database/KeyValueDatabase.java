@@ -1,17 +1,16 @@
 package com.proj.api.database;
 
 import com.proj.api.exception.database.NonRelationalDatabaseException;
+import com.proj.api.utils.JedisPoolUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisException;
-
-import static com.proj.api.utils.JedisPoolUtils.getPool;
 
 /**
  * Created by jangitlau on 2017/11/2.
  */
 public class KeyValueDatabase {
-    private static JedisPool pool = getPool();
+    private static JedisPool pool = JedisPoolUtils.getPool();
     private String sPrefix;
 
     private Jedis redis = null;
