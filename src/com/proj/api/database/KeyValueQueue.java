@@ -26,16 +26,6 @@ public class KeyValueQueue {
         }
     }
 
-    public KeyValueQueue() throws NonRelationalDatabaseException {
-        try {
-            redis = pool.getResource();
-            this.sQueueName = "";
-        } catch (JedisException e) {
-            close();
-            throw new NonRelationalDatabaseException(e);
-        }
-    }
-
     public void setQueueName(String _sQueueName) {
         this.sQueueName = _sQueueName;
     }
