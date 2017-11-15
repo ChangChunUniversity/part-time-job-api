@@ -13,7 +13,6 @@ import redis.clients.jedis.exceptions.JedisException;
 public class KeyValueQueue {
     private static JedisPool pool = JedisPoolUtils.getPool();
     private String sQueueName;
-
     private Jedis redis = null;
 
     public KeyValueQueue(String _sQueueName) throws NonRelationalDatabaseException {
