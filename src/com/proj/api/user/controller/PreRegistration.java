@@ -8,6 +8,7 @@ import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.user.PhoneAlreadyExistException;
 import com.proj.api.exception.user.UserAlreadyExistException;
 import com.proj.api.exception.utils.AESEncryptException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.gson.PreRegistrationInfGson;
 import com.proj.api.utils.AESUtils;
 import com.proj.api.utils.JsonUtils;
@@ -24,7 +25,7 @@ public class PreRegistration {
     private String sKey;
     private String sPhoneNum;
 
-    public PreRegistration(String _sPhoneNum) throws NonRelationalDatabaseException, RelationalDatabaseException, UserAlreadyExistException, AESEncryptException, PhoneAlreadyExistException {
+    public PreRegistration(String _sPhoneNum) throws NonRelationalDatabaseException, RelationalDatabaseException, UserAlreadyExistException, AESEncryptException, PhoneAlreadyExistException, MalformedJsonException {
         RelationalDatabase rConn = new RelationalDatabase();
         ResultSet result = rConn.doQuery("SELECT uuid FROM user_auth WHERE phone_num=?", new String[]{_sPhoneNum});
         try {

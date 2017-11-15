@@ -9,6 +9,7 @@ import com.proj.api.exception.user.InvaildOperationException;
 import com.proj.api.exception.user.UserAlreadyExistException;
 import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.AESEncryptException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.gson.LoggedInUserInfGson;
 import com.proj.api.user.gson.PreRegistrationInfGson;
 import com.proj.api.utils.AESUtils;
@@ -29,7 +30,7 @@ public class Registration {
     private String sId;
     private int iType;
 
-    public Registration(String _sUsername,String _sPhoneNum,String _sPasswordKey,int _iType) throws RelationalDatabaseException, NonRelationalDatabaseException, InvaildOperationException, AESDecryptException, AESEncryptException, UserAlreadyExistException {
+    public Registration(String _sUsername,String _sPhoneNum,String _sPasswordKey,int _iType) throws RelationalDatabaseException, NonRelationalDatabaseException, InvaildOperationException, AESDecryptException, AESEncryptException, UserAlreadyExistException, MalformedJsonException {
         this.iType = _iType;
         KeyValueDatabase kvConn = new KeyValueDatabase(PreRegistrationInfGson.sessionPrefix);
         if (!kvConn.exists(_sPhoneNum)) {

@@ -6,6 +6,7 @@ import com.proj.api.exception.user.InvaildOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
 import com.proj.api.exception.user.UsernameNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.controller.Authorization;
 import com.proj.api.user.controller.PreAuthorization;
 
@@ -25,6 +26,8 @@ public class Main {
         } catch (NonRelationalDatabaseException e) {
             e.printStackTrace();
         } catch (AESEncryptException e) {
+            e.printStackTrace();
+        } catch (MalformedJsonException e) {
             e.printStackTrace();
         }
         System.exit(0);

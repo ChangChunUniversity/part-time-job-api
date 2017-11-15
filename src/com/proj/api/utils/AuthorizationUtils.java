@@ -5,6 +5,7 @@ import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.user.UserNotAuthorizedException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.gson.LoggedInUserInfGson;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -20,7 +21,7 @@ public class AuthorizationUtils {
     private String sToken;
     private long lLoginTime;
 
-    public AuthorizationUtils(String _sUserId) throws NonRelationalDatabaseException, UserNotAuthorizedException {
+    public AuthorizationUtils(String _sUserId) throws NonRelationalDatabaseException, UserNotAuthorizedException, MalformedJsonException {
         KeyValueDatabase kvConn=new KeyValueDatabase(LoggedInUserInfGson.sessionPrefix);
         if(!kvConn.exists(_sUserId)){
             kvConn.close();

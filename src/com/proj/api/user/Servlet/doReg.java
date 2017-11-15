@@ -11,6 +11,7 @@ import com.proj.api.exception.user.PhoneAlreadyExistException;
 import com.proj.api.exception.user.UserAlreadyExistException;
 import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.AESEncryptException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.controller.Authorization;
 import com.proj.api.user.controller.PreRegistration;
 import com.proj.api.user.controller.Registration;
@@ -59,6 +60,8 @@ public class doReg extends HttpServlet {
             retStr = e.getRetJson();
         } catch (InvaildOperationException e) {
             retStr = e.getRetJson();
+        } catch (MalformedJsonException e) {
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         if (sCallback == null) {
@@ -92,6 +95,8 @@ public class doReg extends HttpServlet {
         } catch (RelationalDatabaseException e) {
             retStr = e.getRetJson();
         } catch (PhoneAlreadyExistException e) {
+            retStr = e.getRetJson();
+        } catch (MalformedJsonException e) {
             retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");

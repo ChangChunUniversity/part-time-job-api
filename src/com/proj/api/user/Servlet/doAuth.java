@@ -9,12 +9,14 @@ import com.proj.api.exception.user.InvaildOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
 import com.proj.api.exception.user.UsernameNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.controller.Authorization;
 import com.proj.api.user.controller.PreAuthorization;
 import com.proj.api.user.gson.AuthorizationRecvGson;
 import com.proj.api.user.gson.AuthorizationRetGson;
 import com.proj.api.user.gson.PreAuthorizationRetGson;
 import com.proj.api.utils.InputStrUtils;
+import com.proj.api.utils.JsonUtils;
 
 import java.io.IOException;
 
@@ -23,12 +25,10 @@ import java.io.IOException;
  */
 public class doAuth extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        String sCallback = request.getParameter("callback");
-        Gson json = new Gson();
         String retStr = "";
         try {
             String recvStr = InputStrUtils.getRecvString(request);
-            AuthorizationRecvGson authorizationRecvGson = json.fromJson(recvStr, AuthorizationRecvGson.class);
+            AuthorizationRecvGson authorizationRecvGson = JsonUtils.fromJson(recvStr, AuthorizationRecvGson.class);
             Authorization authorization = new Authorization(
                     authorizationRecvGson.getUsername(),
                     authorizationRecvGson.getRand_str(),
@@ -37,7 +37,7 @@ public class doAuth extends javax.servlet.http.HttpServlet {
                     authorization.getsUsername(),
                     authorization.getiId(),
                     authorization.getsPreToken());
-            retStr = json.toJson(authorizationRetGson);
+            retStr = JsonUtils.toJson(authorizationRetGson);
         } catch (InvalidParamsException e) {
             retStr = e.getRetJson();
         } catch (AESEncryptException e) {
@@ -48,18 +48,14 @@ public class doAuth extends javax.servlet.http.HttpServlet {
             retStr = e.getRetJson();
         } catch (InvaildOperationException e) {
             retStr = e.getRetJson();
+        } catch (MalformedJsonException e) {
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
-        if (sCallback == null) {
-            response.getWriter().print(retStr);
-        } else {
-            response.getWriter().print(sCallback + "(" + retStr + ");");
-        }
+        response.getWriter().print(retStr);
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        String sCallback = request.getParameter("callback");
-        Gson json = new Gson();
         String retStr = "";
         try {
             String sUsername = request.getParameter("username");
@@ -70,7 +66,7 @@ public class doAuth extends javax.servlet.http.HttpServlet {
             PreAuthorizationRetGson preAuthorizationRetGson = new PreAuthorizationRetGson(
                     preAuthorization.getsUsername()
                     , preAuthorization.getsKey());
-            retStr = json.toJson(preAuthorizationRetGson);
+            retStr = JsonUtils.toJson(preAuthorizationRetGson);
         } catch (InvalidParamsException e) {
             retStr = e.getRetJson();
         } catch (UsernameNotExistException e) {
@@ -81,13 +77,11 @@ public class doAuth extends javax.servlet.http.HttpServlet {
             retStr = e.getRetJson();
         } catch (RelationalDatabaseException e) {
             retStr = e.getRetJson();
+        } catch (MalformedJsonException e) {
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
-        if (sCallback == null) {
-            response.getWriter().print(retStr);
-        } else {
-            response.getWriter().print(sCallback + "(" + retStr + ");");
-        }
+        response.getWriter().print(retStr);
     }
 
 }

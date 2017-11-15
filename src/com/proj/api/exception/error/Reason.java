@@ -25,6 +25,7 @@ public class Reason {
             case 408:return "无效的校验码"; //InvalidCheckCodeException
             case 409:return "非法操作"; //InvaildOperationException
             case 410:return "用户未登录"; //UserNotAuthorizedException
+            case 411:return "错误的JSON格式"; //MalformedJsonException
 
             case 500:return "系统内部错误";
             case 501:return "非关系型数据库出现错误"; //NonRelationalDatabaseException

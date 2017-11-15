@@ -3,12 +3,13 @@ package com.proj.api.exception.database;
 import com.proj.api.exception.error.CustomError;
 import com.proj.api.exception.error.ErrGsonStructure;
 import com.proj.api.exception.error.Reason;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.utils.JsonUtils;
 
 /**
  * Created by jangitlau on 2017/11/2.
  */
-public class RelationalDatabaseException extends CustomError{
+public class RelationalDatabaseException extends CustomError {
     private static final int err_code = 502;
     public Exception main_exception;
     public Exception sub_exception;
@@ -19,7 +20,7 @@ public class RelationalDatabaseException extends CustomError{
         _oException.printStackTrace();
     }
 
-    public RelationalDatabaseException(Exception _oMain_exception,Exception _oSub_exception) {
+    public RelationalDatabaseException(Exception _oMain_exception, Exception _oSub_exception) {
         super(err_code);
         this.main_exception = _oMain_exception;
         this.sub_exception = _oSub_exception;
@@ -28,9 +29,9 @@ public class RelationalDatabaseException extends CustomError{
     }
 
     @Override
-    public String getRetJson(){
+    public String getRetJson() {
         return JsonUtils.toJson(new ErrGsonStructure(super.getErr_code()
                 , Reason.getReason(super.getErr_code())
-                +" Cause by "+main_exception.getCause()));
+                + " Cause by " + main_exception.getCause()));
     }
 }

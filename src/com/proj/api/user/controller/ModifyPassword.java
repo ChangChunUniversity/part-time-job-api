@@ -7,6 +7,7 @@ import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.user.UserNotAuthorizedException;
 import com.proj.api.exception.user.UsernameNotExistException;
 import com.proj.api.exception.utils.AESDecryptException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.utils.AESUtils;
 import com.proj.api.utils.AuthorizationUtils;
 import com.proj.api.utils.SaltUtils;
@@ -16,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ModifyPassword {
-    public ModifyPassword(String _sUserId,String _sExchangePassword,String _sCheckCode) throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidCheckCodeException, RelationalDatabaseException, UsernameNotExistException, AESDecryptException {
+    public ModifyPassword(String _sUserId,String _sExchangePassword,String _sCheckCode) throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidCheckCodeException, RelationalDatabaseException, UsernameNotExistException, AESDecryptException, MalformedJsonException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(_sUserId);
         authorizationUtils.checkParams(_sExchangePassword + _sUserId, _sCheckCode);
 

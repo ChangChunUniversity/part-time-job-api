@@ -3,6 +3,7 @@ package com.proj.api.exception.database;
 import com.proj.api.exception.error.CustomError;
 import com.proj.api.exception.error.ErrGsonStructure;
 import com.proj.api.exception.error.Reason;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.utils.JsonUtils;
 
 /**

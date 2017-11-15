@@ -6,6 +6,7 @@ import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.user.InvaildOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
 import com.proj.api.exception.utils.AESEncryptException;
+import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.gson.LoggedInUserInfGson;
 import com.proj.api.user.gson.PreAuthorizationGson;
 import com.proj.api.utils.*;
@@ -18,7 +19,7 @@ public class Authorization {
     private String iId;
     private String sUsername;
     private String sPreToken;
-    public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, InvaildOperationException, PasswordNotCorrectException, AESEncryptException {
+    public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, InvaildOperationException, PasswordNotCorrectException, AESEncryptException, MalformedJsonException {
         KeyValueDatabase kvConn = new KeyValueDatabase(PreAuthorizationGson.sessionPrefix); //打开键值数据库
         /* 判断是否进行预授权，预授权时应以用户名为值向键值数据库
         储存关系型数据库user_auth表中关于该用户的所有信息 */
