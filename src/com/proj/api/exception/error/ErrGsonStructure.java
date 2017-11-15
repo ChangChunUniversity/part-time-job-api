@@ -13,6 +13,11 @@ public class ErrGsonStructure {
         this.reason=Reason.getReason(err_code);
     }
 
+    public ErrGsonStructure(int err_code,String reason) {
+        this.err_code = err_code;
+        this.reason=reason;
+    }
+
     public int getErr_code() {
         return err_code;
     }

@@ -50,6 +50,7 @@ public class doReg extends HttpServlet {
         } catch (UserAlreadyExistException e) {
             retStr = json.toJson(new ErrGsonStructure(403));
         } catch (AESDecryptException e) {
+            e.getRetJson();
             retStr = json.toJson(new ErrGsonStructure(404));
             e.printStackTrace();
         } catch (AESEncryptException e) {
