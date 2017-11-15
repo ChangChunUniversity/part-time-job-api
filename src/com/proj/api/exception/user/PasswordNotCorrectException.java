@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class PasswordNotCorrectException extends CustomError{
     private static final int err_code = 406;
-    protected PasswordNotCorrectException() {
+    public PasswordNotCorrectException() {
         super(err_code);
     }
 }

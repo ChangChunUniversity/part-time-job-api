@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class InvalidCheckCodeException extends CustomError{
     private static final int err_code = 408;
-    protected InvalidCheckCodeException() {
+    public InvalidCheckCodeException() {
         super(err_code);
     }
 }

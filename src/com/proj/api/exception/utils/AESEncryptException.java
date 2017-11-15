@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class AESEncryptException extends CustomError{
     private static final int err_code = 405;
-    protected AESEncryptException() {
+    public AESEncryptException() {
         super(err_code);
     }
 }

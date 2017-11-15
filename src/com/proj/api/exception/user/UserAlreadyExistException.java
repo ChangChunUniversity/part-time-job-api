@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class UserAlreadyExistException extends CustomError{
     private static final int err_code = 403;
-    protected UserAlreadyExistException() {
+    public UserAlreadyExistException() {
         super(err_code);
     }
 }

@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class InvaildOperationException extends CustomError{
     private static final int err_code = 409;
-    protected InvaildOperationException() {
+    public InvaildOperationException() {
         super(err_code);
     }
 }

@@ -46,21 +46,19 @@ public class doReg extends HttpServlet {
                     , registration.getiType());
             retStr = json.toJson(registrationRetGson);
         } catch (InvalidParamsException e) {
-            retStr = json.toJson(new ErrGsonStructure(401));
+            retStr = e.getRetJson();
         } catch (UserAlreadyExistException e) {
-            retStr = json.toJson(new ErrGsonStructure(403));
+            retStr = e.getRetJson();
         } catch (AESDecryptException e) {
-            e.getRetJson();
-            retStr = json.toJson(new ErrGsonStructure(404));
-            e.printStackTrace();
+            retStr = e.getRetJson();
         } catch (AESEncryptException e) {
-            retStr = json.toJson(new ErrGsonStructure(405));
+            retStr = e.getRetJson();
         } catch (NonRelationalDatabaseException e) {
-            retStr = json.toJson(new ErrGsonStructure(501));
+            retStr = e.getRetJson();
         } catch (RelationalDatabaseException e) {
-            retStr = json.toJson(new ErrGsonStructure(502));
+            retStr = e.getRetJson();
         } catch (InvaildOperationException e) {
-            retStr = json.toJson(new ErrGsonStructure(503));
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         if (sCallback == null) {
@@ -84,17 +82,17 @@ public class doReg extends HttpServlet {
                     preRegistration.getsPhoneNum(), preRegistration.getsKey());
             retStr = json.toJson(preRegistrationRetGson);
         } catch (InvalidParamsException e) {
-            retStr = json.toJson(new ErrGsonStructure(401));
+            retStr = e.getRetJson();
         } catch (UserAlreadyExistException e) {
-            retStr = json.toJson(new ErrGsonStructure(403));
+            retStr = e.getRetJson();
         } catch (AESEncryptException e) {
-            retStr = json.toJson(new ErrGsonStructure(405));
+            retStr = e.getRetJson();
         } catch (NonRelationalDatabaseException e) {
-            retStr = json.toJson(new ErrGsonStructure(501));
+            retStr = e.getRetJson();
         } catch (RelationalDatabaseException e) {
-            retStr = json.toJson(new ErrGsonStructure(502));
+            retStr = e.getRetJson();
         } catch (PhoneAlreadyExistException e) {
-            retStr = json.toJson(new ErrGsonStructure(407));
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         if (sCallback == null) {

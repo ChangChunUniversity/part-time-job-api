@@ -39,15 +39,15 @@ public class doAuth extends javax.servlet.http.HttpServlet {
                     authorization.getsPreToken());
             retStr = json.toJson(authorizationRetGson);
         } catch (InvalidParamsException e) {
-            retStr = json.toJson(new ErrGsonStructure(401));
+            retStr = e.getRetJson();
         } catch (AESEncryptException e) {
-            retStr = json.toJson(new ErrGsonStructure(405));
+            retStr = e.getRetJson();
         } catch (PasswordNotCorrectException e) {
-            retStr = json.toJson(new ErrGsonStructure(406));
+            retStr = e.getRetJson();
         } catch (NonRelationalDatabaseException e) {
-            retStr = json.toJson(new ErrGsonStructure(501));
+            retStr = e.getRetJson();
         } catch (InvaildOperationException e) {
-            retStr = json.toJson(new ErrGsonStructure(503));
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         if (sCallback == null) {
@@ -72,15 +72,15 @@ public class doAuth extends javax.servlet.http.HttpServlet {
                     , preAuthorization.getsKey());
             retStr = json.toJson(preAuthorizationRetGson);
         } catch (InvalidParamsException e) {
-            retStr = json.toJson(new ErrGsonStructure(401));
+            retStr = e.getRetJson();
         } catch (UsernameNotExistException e) {
-            retStr = json.toJson(new ErrGsonStructure(402));
+            retStr = e.getRetJson();
         } catch (AESEncryptException e) {
-            retStr = json.toJson(new ErrGsonStructure(405));
+            retStr = e.getRetJson();
         } catch (NonRelationalDatabaseException e) {
-            retStr = json.toJson(new ErrGsonStructure(501));
+            retStr = e.getRetJson();
         } catch (RelationalDatabaseException e) {
-            retStr = json.toJson(new ErrGsonStructure(502));
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         if (sCallback == null) {

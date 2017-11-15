@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class UserNotAuthorizedException extends CustomError{
     private static final int err_code = 410;
-    protected UserNotAuthorizedException() {
+    public UserNotAuthorizedException() {
         super(err_code);
     }
 }

@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class UsernameNotExistException extends CustomError {
     private static final int err_code = 402;
-    protected UsernameNotExistException() {
+    public UsernameNotExistException() {
         super(err_code);
     }
 }

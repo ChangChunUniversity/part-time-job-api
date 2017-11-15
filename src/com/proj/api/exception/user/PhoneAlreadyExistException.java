@@ -7,7 +7,7 @@ import com.proj.api.exception.error.CustomError;
  */
 public class PhoneAlreadyExistException extends CustomError {
     private static final int err_code = 407;
-    protected PhoneAlreadyExistException() {
+    public PhoneAlreadyExistException() {
         super(err_code);
     }
 }
