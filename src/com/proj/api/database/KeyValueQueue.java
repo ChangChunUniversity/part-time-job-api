@@ -2,6 +2,7 @@ package com.proj.api.database;
 
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.utils.JedisPoolUtils;
+import com.proj.api.utils.RandomUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisException;
@@ -48,18 +49,43 @@ public class KeyValueQueue {
         }
     }
 
-    public void push(String _sValue) throws NonRelationalDatabaseException {
+    public void pushKey(String _sKey) throws NonRelationalDatabaseException {
         try {
-            this.redis.lpush(sQueueName,_sValue);
+            this.redis.lpush(sQueueName,_sKey);
         } catch (JedisException e) {
             close();
             throw new NonRelationalDatabaseException(e);
         }
     }
 
-    public String pop() throws NonRelationalDatabaseException {
+    public String popKey() throws NonRelationalDatabaseException {
         try {
             return this.redis.lpop(sQueueName);
+        } catch (JedisException e) {
+            close();
+            throw new NonRelationalDatabaseException(e);
+        }
+    }
+
+    public void pushValue(String _sValue) throws NonRelationalDatabaseException {
+        try {
+            String sKey = sQueueName + "_" + RandomUtils.getUUID();
+            this.redis.lpush(sQueueName, sKey);
+            this.redis.set(sKey,_sValue);
+        } catch (JedisException e) {
+            close();
+            throw new NonRelationalDatabaseException(e);
+        }
+    }
+
+    public String popValue() throws NonRelationalDatabaseException {
+        try {
+            String sKey = this.redis.lpop(sQueueName);
+            if(sKey==null){
+                return null;
+            }else{
+                return this.redis.get(sKey);
+            }
         } catch (JedisException e) {
             close();
             throw new NonRelationalDatabaseException(e);

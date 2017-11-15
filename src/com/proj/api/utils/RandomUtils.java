@@ -1,6 +1,9 @@
 package com.proj.api.utils;
 
 
+import java.util.Random;
+import java.util.UUID;
+
 import static java.lang.Math.abs;
 
 /**
@@ -23,5 +26,9 @@ public class RandomUtils {
         String sRandStr = "";
         java.util.Random random = new java.util.Random(System.nanoTime());
         return String.valueOf(random.nextInt());
+    }
+
+    public static String getUUID(){
+        return UUID.randomUUID().toString();
     }
 }
