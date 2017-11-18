@@ -5,7 +5,7 @@ import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.error.ErrGsonStructure;
 import com.proj.api.exception.other.InvalidParamsException;
-import com.proj.api.exception.user.InvaildOperationException;
+import com.proj.api.exception.user.InvalidOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
 import com.proj.api.exception.user.UsernameNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
@@ -46,7 +46,7 @@ public class doAuth extends javax.servlet.http.HttpServlet {
             retStr = e.getRetJson();
         } catch (NonRelationalDatabaseException e) {
             retStr = e.getRetJson();
-        } catch (InvaildOperationException e) {
+        } catch (InvalidOperationException e) {
             retStr = e.getRetJson();
         } catch (MalformedJsonException e) {
             retStr = e.getRetJson();

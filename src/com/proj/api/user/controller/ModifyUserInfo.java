@@ -30,7 +30,8 @@ public class ModifyUserInfo {
     public ModifyUserInfo(String action, String auth_id, String user_id, String username, String phone_num, String password_key,
                           int type, int authority, int status, String check_code)
             throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidOperationException, InvalidCheckCodeException,
-            UserAlreadyExistException, RelationalDatabaseException, InvalidParamsException, AESDecryptException, UsernameNotExistException, MalformedJsonException, InvalidBackstageOperationException {
+            UserAlreadyExistException, RelationalDatabaseException, InvalidParamsException, AESDecryptException, UsernameNotExistException,
+            MalformedJsonException, InvalidBackstageOperationException, UserDisableException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(auth_id);
 
         if (authorizationUtils.getiType() != 3||authorizationUtils.getiAuthority()<5) {

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
+import com.proj.api.exception.user.UserDisableException;
 import com.proj.api.exception.user.UserNotAuthorizedException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.gson.LoggedInUserInfGson;
@@ -21,7 +22,7 @@ public class AuthorizationUtils {
     private String sToken;
     private long lLoginTime;
 
-    public AuthorizationUtils(String _sUserId) throws NonRelationalDatabaseException, UserNotAuthorizedException, MalformedJsonException {
+    public AuthorizationUtils(String _sUserId) throws NonRelationalDatabaseException, UserNotAuthorizedException, MalformedJsonException, UserDisableException {
         KeyValueDatabase kvConn=new KeyValueDatabase(LoggedInUserInfGson.sessionPrefix);
         if(!kvConn.exists(_sUserId)){
             kvConn.close();
@@ -29,6 +30,9 @@ public class AuthorizationUtils {
         }
         LoggedInUserInfGson loggedInUserInfGson=JsonUtils.fromJson(kvConn.get(_sUserId),LoggedInUserInfGson.class);
         kvConn.close();
+        if(loggedInUserInfGson.getiStatus()==3){
+            throw new UserDisableException();
+        }
         this.sId=loggedInUserInfGson.getsId();
         this.sUserName=loggedInUserInfGson.getsUserName();
         this.iType=loggedInUserInfGson.getiType();

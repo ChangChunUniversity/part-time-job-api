@@ -4,6 +4,7 @@ import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.other.InvalidParamsException;
+import com.proj.api.exception.user.UserDisableException;
 import com.proj.api.exception.user.UserNotAuthorizedException;
 import com.proj.api.exception.user.UsernameNotExistException;
 import com.proj.api.exception.utils.AESDecryptException;
@@ -50,6 +51,8 @@ public class doModifyPwd extends HttpServlet {
         } catch (NonRelationalDatabaseException e) {
             retStr=e.getRetJson();
         } catch (MalformedJsonException e) {
+            retStr = e.getRetJson();
+        } catch (UserDisableException e) {
             retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");

@@ -2,7 +2,7 @@ package com.proj.api.user.controller;
 
 import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
-import com.proj.api.exception.user.InvaildOperationException;
+import com.proj.api.exception.user.InvalidOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
@@ -18,13 +18,13 @@ public class Authorization {
     private String iId;
     private String sUsername;
     private String sPreToken;
-    public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, InvaildOperationException, PasswordNotCorrectException, AESEncryptException, MalformedJsonException {
+    public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, PasswordNotCorrectException, AESEncryptException, MalformedJsonException, InvalidOperationException {
         KeyValueDatabase kvConn = new KeyValueDatabase(PreAuthorizationGson.sessionPrefix); //打开键值数据库
         /* 判断是否进行预授权，预授权时应以用户名为值向键值数据库
         储存关系型数据库user_auth表中关于该用户的所有信息 */
         if (!kvConn.exists(_sUsername)) {
             kvConn.close();
-            throw new InvaildOperationException(); //未进行预授权，需要发出登录警告
+            throw new InvalidOperationException(); //未进行预授权，需要发出登录警告
         }
         PreAuthorizationGson preAuthorizationGson //获取预授权时获取的数据并进行解析
                 = JsonUtils.fromJson(kvConn.get(_sUsername), PreAuthorizationGson.class);

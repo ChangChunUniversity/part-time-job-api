@@ -4,7 +4,7 @@ import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.database.RelationalDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
-import com.proj.api.exception.user.InvaildOperationException;
+import com.proj.api.exception.user.InvalidOperationException;
 import com.proj.api.exception.user.UserAlreadyExistException;
 import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.AESEncryptException;
@@ -29,12 +29,12 @@ public class Registration {
     private String sId;
     private int iType;
 
-    public Registration(String _sUsername,String _sPhoneNum,String _sPasswordKey,int _iType) throws RelationalDatabaseException, NonRelationalDatabaseException, InvaildOperationException, AESDecryptException, AESEncryptException, UserAlreadyExistException, MalformedJsonException {
+    public Registration(String _sUsername,String _sPhoneNum,String _sPasswordKey,int _iType) throws RelationalDatabaseException, NonRelationalDatabaseException, AESDecryptException, AESEncryptException, UserAlreadyExistException, MalformedJsonException, InvalidOperationException {
         this.iType = _iType;
         KeyValueDatabase kvConn = new KeyValueDatabase(PreRegistrationInfGson.sessionPrefix);
         if (!kvConn.exists(_sPhoneNum)) {
             kvConn.close();
-            throw new InvaildOperationException();
+            throw new InvalidOperationException();
         }
         PreRegistrationInfGson preRegistrationInfGson = JsonUtils.fromJson(kvConn.get(_sPhoneNum), PreRegistrationInfGson.class);
         String sClearPassword = "";
@@ -59,10 +59,8 @@ public class Registration {
         }
         this.sId = UUID.randomUUID().toString();
         System.out.println("Clear PWD:"+sClearPassword);
-        String sTranPassword = DigestUtils.md5Hex(sClearPassword + SensitiveDataUtils.sTranPasswordSalt);
-        String sAuthPassword = DigestUtils.md5Hex(
-                DigestUtils.md5Hex(sClearPassword + SensitiveDataUtils.sPrePasswordSalt)
-                        + SensitiveDataUtils.sAuthPasswordSalt);
+        String sTranPassword = SensitiveDataUtils.toTranpassword(sClearPassword);
+        String sAuthPassword = SensitiveDataUtils.toAuthpassword(sClearPassword);
         rConn.doSQL("INSERT INTO user_auth(uuid,username,phone_num,tran_password,auth_password,type,authority,status) VALUES(?,?,?,?,?,?,?,?)"
                 , new Object[]{this.sId, _sUsername, _sPhoneNum, sTranPassword, sAuthPassword, _iType, 0, 0});
         rConn.close();
