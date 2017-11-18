@@ -27,6 +27,7 @@ public class Reason {
             case 410:return "用户未登录"; //UserNotAuthorizedException
             case 411:return "错误的JSON格式"; //MalformedJsonException
             case 412:return "后台用户权限不足"; //InvalidBackstageOperationException
+            case 413:return "用户被停用"; //UserDisableException
 
             case 500:return "系统内部错误";
             case 501:return "非关系型数据库出现错误"; //NonRelationalDatabaseException
