@@ -1,6 +1,5 @@
 package com.proj.api.user.controller;
 
-import com.google.gson.Gson;
 import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.database.RelationalDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
@@ -15,7 +14,7 @@ import com.proj.api.user.gson.PreRegistrationInfGson;
 import com.proj.api.utils.AESUtils;
 import com.proj.api.utils.JsonUtils;
 import com.proj.api.utils.RandomUtils;
-import com.proj.api.utils.SaltUtils;
+import com.proj.api.utils.SensitiveDataUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.ResultSet;
@@ -60,10 +59,10 @@ public class Registration {
         }
         this.sId = UUID.randomUUID().toString();
         System.out.println("Clear PWD:"+sClearPassword);
-        String sTranPassword = DigestUtils.md5Hex(sClearPassword + SaltUtils.sTranPasswordSalt);
+        String sTranPassword = DigestUtils.md5Hex(sClearPassword + SensitiveDataUtils.sTranPasswordSalt);
         String sAuthPassword = DigestUtils.md5Hex(
-                DigestUtils.md5Hex(sClearPassword + SaltUtils.sPrePasswordSalt)
-                        + SaltUtils.sAuthPasswordSalt);
+                DigestUtils.md5Hex(sClearPassword + SensitiveDataUtils.sPrePasswordSalt)
+                        + SensitiveDataUtils.sAuthPasswordSalt);
         rConn.doSQL("INSERT INTO user_auth(uuid,username,phone_num,tran_password,auth_password,type,authority,status) VALUES(?,?,?,?,?,?,?,?)"
                 , new Object[]{this.sId, _sUsername, _sPhoneNum, sTranPassword, sAuthPassword, _iType, 0, 0});
         rConn.close();

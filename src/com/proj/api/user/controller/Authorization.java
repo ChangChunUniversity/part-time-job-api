@@ -1,6 +1,5 @@
 package com.proj.api.user.controller;
 
-import com.google.gson.Gson;
 import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.user.InvaildOperationException;
@@ -34,7 +33,7 @@ public class Authorization {
             kvConn.close();
             throw new PasswordNotCorrectException(); //随机数不正确，说明密码不正确，需要发出登录警告
         }
-        String sAuthPassword = DigestUtils.md5Hex(sPrePassword + SaltUtils.sAuthPasswordSalt);
+        String sAuthPassword = DigestUtils.md5Hex(sPrePassword + SensitiveDataUtils.sAuthPasswordSalt);
         if (!sAuthPassword.equals(preAuthorizationGson.getsAuthPassword())) { //检查上传的授权密码是否与数据库中的符合
             kvConn.del(_sUsername);
             kvConn.close();
