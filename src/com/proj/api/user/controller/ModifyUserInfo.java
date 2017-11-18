@@ -4,6 +4,7 @@ package com.proj.api.user.controller;
  */
 
 import com.proj.api.database.RelationalDatabase;
+import com.proj.api.exception.cert.ConvertUserTypeException;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
@@ -12,7 +13,6 @@ import com.proj.api.exception.user.*;
 import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.utils.*;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +31,7 @@ public class ModifyUserInfo {
                           int type, int authority, int status, String check_code)
             throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidOperationException, InvalidCheckCodeException,
             UserAlreadyExistException, RelationalDatabaseException, InvalidParamsException, AESDecryptException, UsernameNotExistException,
-            MalformedJsonException, InvalidBackstageOperationException, UserDisableException {
+            MalformedJsonException, InvalidBackstageOperationException, UserDisableException, ConvertUserTypeException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(auth_id);
 
         if (authorizationUtils.getiType() != 3||authorizationUtils.getiAuthority()<5) {
@@ -71,13 +71,16 @@ public class ModifyUserInfo {
     }
 
     private void addUser(String sUserId, String username, String phone_num, String password, int type, int authority, int status)
-            throws NonRelationalDatabaseException, RelationalDatabaseException, InvalidParamsException, UserAlreadyExistException {
+            throws NonRelationalDatabaseException, RelationalDatabaseException, InvalidParamsException, UserAlreadyExistException, ConvertUserTypeException {
         //验证输入数据的有效性
         if (username == null && password == null && username == "" && password == "") {
             throw new InvalidParamsException();
         }
         if (type < 0 && authority < 0 && status < 0) {
             throw new InvalidParamsException();
+        }
+        if(status==2){
+            throw new ConvertUserTypeException();
         }
         //检查用户名是否存在
         RelationalDatabase rConn = new RelationalDatabase();
@@ -128,7 +131,7 @@ public class ModifyUserInfo {
         this.sUserId=sUserId;
     }
 
-    private void modUser(String sUserId, String username, String phone_num, String password, int type, int authority, int status) throws InvalidParamsException, RelationalDatabaseException, UsernameNotExistException {
+    private void modUser(String sUserId, String username, String phone_num, String password, int type, int authority, int status) throws InvalidParamsException, RelationalDatabaseException, UsernameNotExistException, ConvertUserTypeException {
         //检查数据是否有效
         if (username == null && password == null) {
             throw new InvalidParamsException();
@@ -160,6 +163,9 @@ public class ModifyUserInfo {
                 this.bPassword = true;
             }
             if (type != -1) {
+                if(status==2){
+                    throw new ConvertUserTypeException();
+                }
                 rConn.doSQL("UPDATE user_auth SET type = ? WHERE uuid=?", new Object[]{type, sUserId});
                 this.bType = true;
             }
