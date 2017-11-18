@@ -4,7 +4,7 @@ package com.proj.api.user.controller;
  */
 
 import com.proj.api.database.RelationalDatabase;
-import com.proj.api.exception.cert.ConvertUserTypeException;
+import com.proj.api.exception.user.ConvertUserTypeException;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;

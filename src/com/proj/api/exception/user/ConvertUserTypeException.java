@@ -1,4 +1,4 @@
-package com.proj.api.exception.cert;
+package com.proj.api.exception.user;
 
 import com.proj.api.exception.error.CustomError;
 
