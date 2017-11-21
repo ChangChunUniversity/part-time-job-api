@@ -6,3 +6,5 @@ gen
 !.idea/dataSources/*
 out/
 web/.DS_Store
+.gitignore
+src/c3p0-config.xml

@@ -1,13 +1,11 @@
 package com.proj.api.user.Servlet;
 
-import com.google.gson.Gson;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
-import com.proj.api.exception.error.ErrGsonStructure;
 import com.proj.api.exception.other.InvalidParamsException;
 import com.proj.api.exception.user.InvalidOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
-import com.proj.api.exception.user.UsernameNotExistException;
+import com.proj.api.exception.user.UserNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.controller.Authorization;
@@ -69,7 +67,7 @@ public class doAuth extends javax.servlet.http.HttpServlet {
             retStr = JsonUtils.toJson(preAuthorizationRetGson);
         } catch (InvalidParamsException e) {
             retStr = e.getRetJson();
-        } catch (UsernameNotExistException e) {
+        } catch (UserNotExistException e) {
             retStr = e.getRetJson();
         } catch (AESEncryptException e) {
             retStr = e.getRetJson();

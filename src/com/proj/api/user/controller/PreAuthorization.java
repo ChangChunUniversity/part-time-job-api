@@ -1,11 +1,10 @@
 package com.proj.api.user.controller;
 
-import com.google.gson.Gson;
 import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.database.RelationalDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
-import com.proj.api.exception.user.UsernameNotExistException;
+import com.proj.api.exception.user.UserNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.gson.PreAuthorizationGson;
@@ -27,7 +26,7 @@ public class PreAuthorization {
     private String sUsername;
     private String sKey;
 
-    public PreAuthorization(String _sUsername) throws UsernameNotExistException, RelationalDatabaseException, NonRelationalDatabaseException, AESEncryptException, MalformedJsonException {
+    public PreAuthorization(String _sUsername) throws UserNotExistException, RelationalDatabaseException, NonRelationalDatabaseException, AESEncryptException, MalformedJsonException {
         this.sUsername = _sUsername;
         String sRandomStr = RandomUtils.getRandomString(16);
         int iType, iAuthority, iStatus;
@@ -46,7 +45,7 @@ public class PreAuthorization {
                 iAuthority = result.getInt("authority");
                 iStatus = result.getInt("status");
             } else {
-                throw new UsernameNotExistException();
+                throw new UserNotExistException();
             }
         } catch (SQLException e) {
             throw new RelationalDatabaseException(e);

@@ -16,7 +16,7 @@ public class Reason {
 
             case 400:return "外部参数错误";
             case 401:return "无效的参数"; //InvalidParamsException
-            case 402:return "此用户名不存在"; //UsernameNotExistException
+            case 402:return "此用户名不存在"; //UserNotExistException
             case 403:return "此用户名已经存在"; //UserAlreadyExistException
             case 404:return "密文使用AES算法解密失败"; //AESDecryptException
             case 405:return "明文使用AES算法加密失败"; //AESEncryptException

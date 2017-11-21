@@ -6,7 +6,7 @@ import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.other.InvalidParamsException;
 import com.proj.api.exception.user.UserDisableException;
 import com.proj.api.exception.user.UserNotAuthorizedException;
-import com.proj.api.exception.user.UsernameNotExistException;
+import com.proj.api.exception.user.UserNotExistException;
 import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.controller.ModifyPassword;
@@ -42,7 +42,7 @@ public class doModifyPwd extends HttpServlet {
             retStr=e.getRetJson();
         } catch (AESDecryptException e) {
             retStr=e.getRetJson();
-        } catch (UsernameNotExistException e) {
+        } catch (UserNotExistException e) {
             retStr=e.getRetJson();
         } catch (UserNotAuthorizedException e) {
             retStr=e.getRetJson();

@@ -6,7 +6,7 @@ import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.user.UserDisableException;
 import com.proj.api.exception.user.UserNotAuthorizedException;
-import com.proj.api.exception.user.UsernameNotExistException;
+import com.proj.api.exception.user.UserNotExistException;
 import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.utils.AESUtils;
@@ -18,7 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ModifyPassword {
-    public ModifyPassword(String _sUserId,String _sExchangePassword,String _sCheckCode) throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidCheckCodeException, RelationalDatabaseException, UsernameNotExistException, AESDecryptException, MalformedJsonException, UserDisableException {
+    public ModifyPassword(String _sUserId,String _sExchangePassword,String _sCheckCode) throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidCheckCodeException, RelationalDatabaseException, UserNotExistException, AESDecryptException, MalformedJsonException, UserDisableException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(_sUserId);
         authorizationUtils.checkParams(_sExchangePassword + _sUserId, _sCheckCode);
 
@@ -31,7 +31,7 @@ public class ModifyPassword {
                 sOldTranPassword=rs.getString("tran_password");
             }else{
                 rConn.close();
-                throw new UsernameNotExistException();
+                throw new UserNotExistException();
             }
         } catch (SQLException e) {
             rConn.close();

@@ -40,6 +40,15 @@
         <servlet-name>doModifyPwd</servlet-name>
         <url-pattern>/api/user/modify_pwd</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>doReginf</servlet-name>
+        <servlet-class>com.proj.api.user.Servlet.doRegInf</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doReginf</servlet-name>
+        <url-pattern>/api/user/reginf</url-pattern>
+    </servlet-mapping>
     <!-- ========== User ========== -->
 
 </web-app>

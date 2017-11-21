@@ -1,5 +1,7 @@
 package com.proj.api.user.controller;
-
+/**
+ * author:Jerry
+ */
 import com.proj.api.database.RelationalDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
@@ -9,34 +11,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RegisterInformation {
-    private boolean bUsername = false;
-    private boolean bPhoneNum = false;
+    private boolean bUsername;
+    private boolean bPhoneNum;
 
-    public RegisterInformation(String username,String phone_num) throws UserNotAuthorizedException, UserDisableException, NonRelationalDatabaseException, MalformedJsonException, RelationalDatabaseException {
-        if (username != null && username !=""){
-            RelationalDatabase rConn = new RelationalDatabase();
+    public RegisterInformation(String username, String phone_num) throws UserNotAuthorizedException, UserDisableException, NonRelationalDatabaseException, MalformedJsonException, RelationalDatabaseException {
+        RelationalDatabase rConn = new RelationalDatabase();
+        if (username != null && username != "") {
             ResultSet result = rConn.doQuery("SELECT uuid FROM user_auth WHERE username=?", new String[]{username});
             try {
                 if (result.first()) {
-                    bUsername = true;
+                    this.bUsername = true;
+                } else {
+                    this.bUsername = false;
                 }
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 rConn.close();
                 throw new RelationalDatabaseException(e);
             }
         }
-        if (phone_num != null && phone_num !=""){
-            RelationalDatabase rConn = new RelationalDatabase();
+        if (phone_num != null && phone_num != "") {
             ResultSet result = rConn.doQuery("SELECT uuid FROM user_auth WHERE phone_num=?", new String[]{phone_num});
             try {
                 if (result.first()) {
-                    bPhoneNum = true;
+                    this.bPhoneNum = true;
+                } else {
+                    this.bPhoneNum = false;
                 }
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 rConn.close();
                 throw new RelationalDatabaseException(e);
             }
         }
+        rConn.close();
     }
 
     public boolean isbUsername() {

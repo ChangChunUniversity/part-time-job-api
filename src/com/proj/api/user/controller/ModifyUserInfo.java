@@ -30,7 +30,7 @@ public class ModifyUserInfo {
     public ModifyUserInfo(String action, String auth_id, String user_id, String username, String phone_num, String password_key,
                           int type, int authority, int status, String check_code)
             throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidOperationException, InvalidCheckCodeException,
-            UserAlreadyExistException, RelationalDatabaseException, InvalidParamsException, AESDecryptException, UsernameNotExistException,
+            UserAlreadyExistException, RelationalDatabaseException, InvalidParamsException, AESDecryptException, UserNotExistException,
             MalformedJsonException, InvalidBackstageOperationException, UserDisableException, ConvertUserTypeException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(auth_id);
 
@@ -112,7 +112,7 @@ public class ModifyUserInfo {
         rConn.close();
     }
 
-    private void delUser(String user_id) throws InvalidParamsException, RelationalDatabaseException, UserAlreadyExistException, UsernameNotExistException {
+    private void delUser(String user_id) throws InvalidParamsException, RelationalDatabaseException, UserAlreadyExistException, UserNotExistException {
         if (user_id == null) {
             throw new InvalidParamsException();
         }
@@ -121,7 +121,7 @@ public class ModifyUserInfo {
         try {
             if (!result.first()) {
                 rConn.close();
-                throw new UsernameNotExistException();
+                throw new UserNotExistException();
             }
             rConn.doSQL("DELETE FROM user_auth WHERE uuid = ?", new Object[]{user_id});
         } catch (SQLException e) {
@@ -131,7 +131,7 @@ public class ModifyUserInfo {
         this.sUserId=sUserId;
     }
 
-    private void modUser(String sUserId, String username, String phone_num, String password, int type, int authority, int status) throws InvalidParamsException, RelationalDatabaseException, UsernameNotExistException, ConvertUserTypeException {
+    private void modUser(String sUserId, String username, String phone_num, String password, int type, int authority, int status) throws InvalidParamsException, RelationalDatabaseException, UserNotExistException, ConvertUserTypeException {
         //检查数据是否有效
         if (username == null && password == null) {
             throw new InvalidParamsException();
@@ -146,7 +146,7 @@ public class ModifyUserInfo {
         try {
             if (!result.first()) {
                 rConn.close();
-                throw new UsernameNotExistException();
+                throw new UserNotExistException();
             }
             if (username != "") {
                 rConn.doSQL("UPDATE user_auth SET username = ? WHERE uuid=?", new Object[]{username, sUserId});
