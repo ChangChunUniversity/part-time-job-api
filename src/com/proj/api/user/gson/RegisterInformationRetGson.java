@@ -1,5 +1,7 @@
 package com.proj.api.user.gson;
-
+/**
+ * author:Jerry
+ */
 import com.proj.api.exception.error.Reason;
 
 public class RegisterInformationRetGson {

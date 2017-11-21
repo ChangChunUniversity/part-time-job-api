@@ -49,6 +49,10 @@ public class AuthorizationUtils {
         }
     }
 
+    public String getCheckCode(String _sParamSet){
+        return DigestUtils.md5Hex(_sParamSet+this.getsToken());
+    }
+
     public String getsId() {
         return sId;
     }
