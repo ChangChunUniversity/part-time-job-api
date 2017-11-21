@@ -60,4 +60,32 @@ public class InfomationDetailsInfo {
                 +sUserName
         );
     }
+
+    public String getsUserId() {
+        return sUserId;
+    }
+
+    public String getsUserName() {
+        return sUserName;
+    }
+
+    public String getsPhoneNum() {
+        return sPhoneNum;
+    }
+
+    public int getiType() {
+        return iType;
+    }
+
+    public int getiAuthority() {
+        return iAuthority;
+    }
+
+    public int getiStatus() {
+        return iStatus;
+    }
+
+    public String getsCheckCode() {
+        return sCheckCode;
+    }
 }
