@@ -40,7 +40,6 @@ public class ModifyUserInfo {
         authorizationUtils.checkParams(action + auth_id + String.valueOf(authority) + password_key + String.valueOf(status) + String.valueOf(type) + user_id + username, check_code);
 
         String sPassword = "";
-
         if (password_key != null && password_key != "") {
             sPassword = AESUtils.decryptData(password_key, authorizationUtils.getsToken());
         }
