@@ -117,7 +117,7 @@ public class RelationalDatabase {
 
     public void close() throws RelationalDatabaseException {
         try {
-            if(pstmt==null){
+            if(pstmt!=null){
                 pstmt.close();
             }
             this.conn.commit();
