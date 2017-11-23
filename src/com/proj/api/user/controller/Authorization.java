@@ -4,6 +4,7 @@ import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.user.InvalidOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
+import com.proj.api.exception.user.UserDisableException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.user.gson.LoggedInUserInfGson;
@@ -18,7 +19,8 @@ public class Authorization {
     private String iId;
     private String sUsername;
     private String sPreToken;
-    public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, PasswordNotCorrectException, AESEncryptException, MalformedJsonException, InvalidOperationException {
+    private int iType;
+    public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, PasswordNotCorrectException, AESEncryptException, MalformedJsonException, InvalidOperationException, UserDisableException {
         KeyValueDatabase kvConn = new KeyValueDatabase(PreAuthorizationGson.sessionPrefix); //打开键值数据库
         /* 判断是否进行预授权，预授权时应以用户名为值向键值数据库
         储存关系型数据库user_auth表中关于该用户的所有信息 */
@@ -39,6 +41,9 @@ public class Authorization {
             kvConn.close();
             throw new PasswordNotCorrectException(); //验证密码不正确，基本上在随机数正确的情况下是不会发生的，需要发出登录警告
         }
+        if(preAuthorizationGson.getiStatus()==3){
+            throw new UserDisableException();
+        }
         kvConn.del(_sUsername);
         String sToken = RandomUtils.getRandomString(64); //生成64位的token以供服务端以及客户端进行通信
         LoggedInUserInfGson loggedInUserInfGson = new LoggedInUserInfGson( //构建结构储存用户的关键信息
@@ -58,7 +63,7 @@ public class Authorization {
         this.sUsername=preAuthorizationGson.getsUserName();
         //对Token进行加密并返回客户端
         this.sPreToken= AESUtils.encryptData(sToken, preAuthorizationGson.getsTranPassword());
-
+        this.iType=preAuthorizationGson.getiType();
     }
 
     public String getiId() {
@@ -71,5 +76,9 @@ public class Authorization {
 
     public String getsPreToken() {
         return sPreToken;
+    }
+
+    public int getiType() {
+        return iType;
     }
 }

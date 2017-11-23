@@ -5,6 +5,7 @@ import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.other.InvalidParamsException;
 import com.proj.api.exception.user.InvalidOperationException;
 import com.proj.api.exception.user.PasswordNotCorrectException;
+import com.proj.api.exception.user.UserDisableException;
 import com.proj.api.exception.user.UserNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
@@ -34,7 +35,9 @@ public class doAuth extends javax.servlet.http.HttpServlet {
             AuthorizationRetGson authorizationRetGson = new AuthorizationRetGson(
                     authorization.getsUsername(),
                     authorization.getiId(),
-                    authorization.getsPreToken());
+                    authorization.getsPreToken(),
+                    authorization.getiType()
+            );
             retStr = JsonUtils.toJson(authorizationRetGson);
         } catch (InvalidParamsException e) {
             retStr = e.getRetJson();
@@ -47,6 +50,8 @@ public class doAuth extends javax.servlet.http.HttpServlet {
         } catch (InvalidOperationException e) {
             retStr = e.getRetJson();
         } catch (MalformedJsonException e) {
+            retStr = e.getRetJson();
+        } catch (UserDisableException e) {
             retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
@@ -63,7 +68,8 @@ public class doAuth extends javax.servlet.http.HttpServlet {
             PreAuthorization preAuthorization = new PreAuthorization(sUsername);
             PreAuthorizationRetGson preAuthorizationRetGson = new PreAuthorizationRetGson(
                     preAuthorization.getsUsername()
-                    , preAuthorization.getsKey());
+                    , preAuthorization.getsKey()
+            );
             retStr = JsonUtils.toJson(preAuthorizationRetGson);
         } catch (InvalidParamsException e) {
             retStr = e.getRetJson();

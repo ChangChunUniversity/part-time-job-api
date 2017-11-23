@@ -10,11 +10,8 @@ public class AuthorizationRetGson {
     private String reason= Reason.getReason(0);
     private InnerData data;
 
-    public AuthorizationRetGson(String _sUsername,String _sUserId,String sPreToken) {
-        this.data=new InnerData();
-        this.data.setUsername(_sUsername);
-        this.data.setUser_id(_sUserId);
-        this.data.setPre_token(sPreToken);
+    public AuthorizationRetGson(String _sUsername,String _sUserId,String sPreToken,int iType) {
+        this.data=new InnerData(_sUsername,_sUserId,sPreToken,iType);
     }
 
     public int getErr_code() {
@@ -33,29 +30,29 @@ public class AuthorizationRetGson {
         String username;
         String user_id;
         String pre_token;
+        int type;
+
+        public InnerData(String username, String user_id, String pre_token, int type) {
+            this.username = username;
+            this.user_id = user_id;
+            this.pre_token = pre_token;
+            this.type = type;
+        }
 
         public String getUsername() {
             return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
         }
 
         public String getUser_id() {
             return user_id;
         }
 
-        public void setUser_id(String user_id) {
-            this.user_id = user_id;
-        }
-
         public String getPre_token() {
             return pre_token;
         }
 
-        public void setPre_token(String pre_token) {
-            this.pre_token = pre_token;
+        public int getType() {
+            return type;
         }
     }
 }
