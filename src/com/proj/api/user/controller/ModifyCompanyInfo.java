@@ -119,7 +119,7 @@ public class ModifyCompanyInfo {
         }
         if (co_pic.length==0) {
             for (int i=0;i<co_pic.length;i++){
-            //
+            ///
             }
             rConn.doSQL("UPDATE company_inf SET co_pic = ? WHERE uuid=?", new Object[]{co_pic, user_id});
         }
