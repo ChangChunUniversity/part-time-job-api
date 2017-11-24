@@ -1,5 +1,7 @@
 package com.proj.api.auth.gson;
-
+/**
+ *author:Jerry
+ */
 import com.proj.api.exception.other.InvalidParamsException;
 
 public class InformationCheckRecvGson {
