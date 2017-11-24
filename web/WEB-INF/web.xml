@@ -16,7 +16,7 @@
     <!-- ========== User ========== -->
     <servlet>
         <servlet-name>doAuth</servlet-name>
-        <servlet-class>com.proj.api.user.Servlet.doAuth</servlet-class>
+        <servlet-class>com.proj.api.auth.servlet.doAuth</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>doAuth</servlet-name>
@@ -25,7 +25,7 @@
 
     <servlet>
         <servlet-name>doReg</servlet-name>
-        <servlet-class>com.proj.api.user.Servlet.doReg</servlet-class>
+        <servlet-class>com.proj.api.auth.servlet.doReg</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>doReg</servlet-name>
@@ -34,7 +34,7 @@
 
     <servlet>
         <servlet-name>doModifyPwd</servlet-name>
-        <servlet-class>com.proj.api.user.Servlet.doModifyPwd</servlet-class>
+        <servlet-class>com.proj.api.auth.servlet.doModifyPwd</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>doModifyPwd</servlet-name>
@@ -43,7 +43,7 @@
     
     <servlet>
         <servlet-name>doReginf</servlet-name>
-        <servlet-class>com.proj.api.user.Servlet.doRegInf</servlet-class>
+        <servlet-class>com.proj.api.auth.servlet.doRegInf</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>doReginf</servlet-name>

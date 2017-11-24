@@ -1,13 +1,12 @@
 package com.proj.api.utils;
 
-import com.google.gson.Gson;
 import com.proj.api.database.KeyValueDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
-import com.proj.api.exception.user.UserDisableException;
-import com.proj.api.exception.user.UserNotAuthorizedException;
+import com.proj.api.exception.auth.UserDisableException;
+import com.proj.api.exception.auth.UserNotAuthorizedException;
 import com.proj.api.exception.utils.MalformedJsonException;
-import com.proj.api.user.gson.LoggedInUserInfGson;
+import com.proj.api.auth.gson.LoggedInUserInfGson;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
