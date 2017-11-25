@@ -181,6 +181,5 @@ public class ModifyCompanyInfo {
             throw new RelationalDatabaseException(e);
         }
         rConn.close();
-
     }
 }

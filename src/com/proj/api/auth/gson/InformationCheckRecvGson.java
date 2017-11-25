@@ -11,6 +11,7 @@ public class InformationCheckRecvGson {
     private String username;
     private String phone_num;
     private String password_key;
+    private int type;
     private int authority;
     private int status;
     private String check_code;
@@ -69,6 +70,14 @@ public class InformationCheckRecvGson {
 
     public void setPassword_key(String password_key) {
         this.password_key = password_key;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getAuthority() {
