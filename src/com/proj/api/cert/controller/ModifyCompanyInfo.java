@@ -182,4 +182,72 @@ public class ModifyCompanyInfo {
         }
         rConn.close();
     }
+
+    public boolean isbCoName() {
+        return bCoName;
+    }
+
+    public boolean isbConickName() {
+        return bConickName;
+    }
+
+    public boolean isbIndustryType() {
+        return bIndustryType;
+    }
+
+    public boolean isbCoType() {
+        return bCoType;
+    }
+
+    public boolean isbOrgCode() {
+        return bOrgCode;
+    }
+
+    public boolean isbBizCode() {
+        return bBizCode;
+    }
+
+    public boolean isbOrgPic() {
+        return bOrgPic;
+    }
+
+    public boolean isbBizPic() {
+        return bBizPic;
+    }
+
+    public boolean isbCoScale() {
+        return bCoScale;
+    }
+
+    public boolean isbCoDesc() {
+        return bCoDesc;
+    }
+
+    public boolean isbContactPerson() {
+        return bContactPerson;
+    }
+
+    public boolean isbContactPhone() {
+        return bContactPhone;
+    }
+
+    public boolean isbContactMail() {
+        return bContactMail;
+    }
+
+    public boolean isbCoSite() {
+        return bCoSite;
+    }
+
+    public boolean isbCoPic() {
+        return bCoPic;
+    }
+
+    public boolean isbCoCity() {
+        return bCoCity;
+    }
+
+    public boolean isbCoAddr() {
+        return bCoAddr;
+    }
 }
