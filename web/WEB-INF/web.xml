@@ -49,6 +49,22 @@
         <servlet-name>doReginf</servlet-name>
         <url-pattern>/api/user/reginf</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>doModifyInf</servlet-name>
+        <servlet-class>com.proj.api.auth.servlet.doModifyInf</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doModifyInf</servlet-name>
+        <url-pattern>/api/user/modify</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>doGetDetails</servlet-name>
+        <servlet-class>com.proj.api.auth.servlet.doGetDetails</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doGetDetails</servlet-name>
+        <url-pattern>/api/user/details</url-pattern>
+    </servlet-mapping>
     <!-- ========== User ========== -->
 
 </web-app>

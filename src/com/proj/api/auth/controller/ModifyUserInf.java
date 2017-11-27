@@ -17,7 +17,7 @@ import com.proj.api.utils.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ModifyUserInfo {
+public class ModifyUserInf {
 
     String sUserId;
     boolean bUsername = false;
@@ -26,15 +26,16 @@ public class ModifyUserInfo {
     boolean bType = false;
     boolean bAuthority = false;
     boolean bStatus = false;
+    String check_code;
 
-    public ModifyUserInfo(String action, String auth_id, String user_id, String username, String phone_num, String password_key,
-                          int type, int authority, int status, String check_code)
+    public ModifyUserInf(String action, String auth_id, String user_id, String username, String phone_num, String password_key,
+                         int type, int authority, int status, String check_code)
             throws NonRelationalDatabaseException, UserNotAuthorizedException, InvalidOperationException, InvalidCheckCodeException,
             UserAlreadyExistException, RelationalDatabaseException, InvalidParamsException, AESDecryptException, UserNotExistException,
             MalformedJsonException, InvalidBackstageOperationException, UserDisableException, ConvertUserTypeException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(auth_id);
 
-        if (authorizationUtils.getiType() != 3||authorizationUtils.getiAuthority()<5) {
+        if (authorizationUtils.getiType() != 3 || authorizationUtils.getiAuthority() < 5) {
             throw new InvalidOperationException();
         }
         authorizationUtils.checkParams(action + auth_id + String.valueOf(authority) + password_key + String.valueOf(status) + String.valueOf(type) + user_id + username, check_code);
@@ -46,19 +47,19 @@ public class ModifyUserInfo {
 
         switch (action) {
             case "add":
-                if(authorizationUtils.getiAuthority()<=10){
+                if (authorizationUtils.getiAuthority() <= 10) {
                     throw new InvalidBackstageOperationException();
                 }
                 addUser(user_id, username, phone_num, sPassword, type, authority, status);
                 break;
             case "del":
-                if(authorizationUtils.getiAuthority()<=10&&type==3){
+                if (authorizationUtils.getiAuthority() <= 10 && type == 3) {
                     throw new InvalidBackstageOperationException();
                 }
                 delUser(user_id);
                 break;
             case "mod":
-                if(authorizationUtils.getiAuthority()<=10&&type==3){
+                if (authorizationUtils.getiAuthority() <= 10 && type == 3) {
                     throw new InvalidBackstageOperationException();
                 }
                 modUser(user_id, username, phone_num, sPassword, type, authority, status);
@@ -66,7 +67,13 @@ public class ModifyUserInfo {
             default:
                 throw new InvalidParamsException();
         }
-
+        this.check_code = authorizationUtils.getCheckCode(String.valueOf(this.bAuthority) +
+                String.valueOf(this.bPassword) +
+                String.valueOf(this.bPhone_num) +
+                String.valueOf(bStatus) +
+                String.valueOf(bType) +
+                user_id +
+                String.valueOf(bUsername));
     }
 
     private void addUser(String sUserId, String username, String phone_num, String password, int type, int authority, int status)
@@ -192,6 +199,10 @@ public class ModifyUserInfo {
         return bUsername;
     }
 
+    public boolean isbPhone_num() {
+        return bPhone_num;
+    }
+
     public boolean isbPassword() {
         return bPassword;
     }
@@ -206,6 +217,10 @@ public class ModifyUserInfo {
 
     public boolean isbStatus() {
         return bStatus;
+    }
+
+    public String getCheck_code() {
+        return check_code;
     }
 }
 
