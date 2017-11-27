@@ -48,12 +48,12 @@ public class EncryptUtils {
                 } else if (_sKey.length() > 16) {
                     _sKey = _sKey.substring(0, 16);
                 }
-                byte[] encrypted1 =Base64.decodeBase64(_sData.getBytes());
+                byte[] encrypted =Base64.decodeBase64(_sData.getBytes());
                 Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
                 SecretKeySpec keyspec = new SecretKeySpec(_sKey.getBytes(), "AES");
                 IvParameterSpec ivspec = new IvParameterSpec(_sKey.getBytes());
                 cipher.init(Cipher.DECRYPT_MODE, keyspec, ivspec);
-                byte[] original = cipher.doFinal(encrypted1);
+                byte[] original = cipher.doFinal(encrypted);
                 String originalString = new String(original);
                 return originalString;
             } catch (Exception e) {
