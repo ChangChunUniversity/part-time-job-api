@@ -9,10 +9,7 @@ import com.proj.api.exception.auth.UserAlreadyExistException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.auth.gson.PreRegistrationInfGson;
-import com.proj.api.utils.AESUtils;
-import com.proj.api.utils.JsonUtils;
-import com.proj.api.utils.PhoneVerifyCodeUtils;
-import com.proj.api.utils.RandomUtils;
+import com.proj.api.utils.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +40,7 @@ public class PreRegistration {
         kvConn.set(_sPhoneNum, JsonUtils.toJson(preRegistrationInfGson), PreRegistrationInfGson.iSessionExpire);
         kvConn.close();
         String sPhoneVerifyCode = PhoneVerifyCodeUtils.send(_sPhoneNum);
-        this.sKey = AESUtils.encryptData(sRandomStr, sPhoneVerifyCode);
+        this.sKey = EncryptUtils.AES.encryptData(sRandomStr, sPhoneVerifyCode);
         this.sPhoneNum = _sPhoneNum;
     }
 

@@ -8,7 +8,7 @@ import com.proj.api.exception.auth.UserNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.auth.gson.PreAuthorizationGson;
-import com.proj.api.utils.AESUtils;
+import com.proj.api.utils.EncryptUtils;
 import com.proj.api.utils.JsonUtils;
 import com.proj.api.utils.RandomUtils;
 import redis.clients.jedis.exceptions.JedisException;
@@ -63,7 +63,7 @@ public class PreAuthorization {
         } finally {
             jedisConn.close();
         }
-        this.sKey = AESUtils.encryptData(sRandomStr, sTranPassword);
+        this.sKey = EncryptUtils.AES.encryptData(sRandomStr, sTranPassword);
     }
 
     public String getsUsername() {

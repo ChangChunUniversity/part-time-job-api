@@ -9,8 +9,8 @@ import com.proj.api.exception.auth.UserNotAuthorizedException;
 import com.proj.api.exception.auth.UserNotExistException;
 import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
-import com.proj.api.utils.AESUtils;
 import com.proj.api.utils.AuthorizationUtils;
+import com.proj.api.utils.EncryptUtils;
 import com.proj.api.utils.SensitiveDataUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -37,7 +37,7 @@ public class ModifyPassword {
             rConn.close();
             throw new RelationalDatabaseException(e);
         }
-        String sClearPassword= AESUtils.decryptData(_sExchangePassword,sOldTranPassword+authorizationUtils.getsToken());
+        String sClearPassword= EncryptUtils.AES.decryptData(_sExchangePassword, sOldTranPassword + authorizationUtils.getsToken());
         String sTranPassword = DigestUtils.md5Hex(sClearPassword + SensitiveDataUtils.sTranPasswordSalt);
         String sAuthPassword = DigestUtils.md5Hex(
                 DigestUtils.md5Hex(sClearPassword + SensitiveDataUtils.sPrePasswordSalt)

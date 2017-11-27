@@ -62,7 +62,7 @@ public class Authorization {
         this.iId=preAuthorizationGson.getsId();
         this.sUsername=preAuthorizationGson.getsUserName();
         //对Token进行加密并返回客户端
-        this.sPreToken= AESUtils.encryptData(sToken, preAuthorizationGson.getsTranPassword());
+        this.sPreToken= EncryptUtils.AES.encryptData(sToken, preAuthorizationGson.getsTranPassword());
         this.iType=preAuthorizationGson.getiType();
     }
 

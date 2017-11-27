@@ -2,13 +2,10 @@ package com.proj.api.utils;
 /**
  * author:Jerry
  */
+import com.proj.api.exception.auth.*;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
-import com.proj.api.exception.auth.InvalidOperationException;
-import com.proj.api.exception.auth.UserDisableException;
-import com.proj.api.exception.auth.UserNotAuthorizedException;
-import com.proj.api.exception.auth.UserNotExistException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.auth.controller.InfomationDetailsInfo;
 import com.proj.api.auth.gson.InformationCheckRetGson;
@@ -51,6 +48,8 @@ public class doDetails extends HttpServlet {
         } catch (InvalidCheckCodeException e) {
             retStr = e.getRetJson();
         } catch (UserNotExistException e) {
+            retStr = e.getRetJson();
+        } catch (InvalidBackstageOperationException e) {
             retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");

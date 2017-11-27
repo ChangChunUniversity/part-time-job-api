@@ -11,10 +11,7 @@ import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.auth.gson.LoggedInUserInfGson;
 import com.proj.api.auth.gson.PreRegistrationInfGson;
-import com.proj.api.utils.AESUtils;
-import com.proj.api.utils.JsonUtils;
-import com.proj.api.utils.RandomUtils;
-import com.proj.api.utils.SensitiveDataUtils;
+import com.proj.api.utils.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +35,7 @@ public class Registration {
         PreRegistrationInfGson preRegistrationInfGson = JsonUtils.fromJson(kvConn.get(_sPhoneNum), PreRegistrationInfGson.class);
         String sClearPassword = "";
         try {
-            sClearPassword = AESUtils.decryptData(_sPasswordKey, preRegistrationInfGson.getRand_str()).replace("\0","");
+            sClearPassword = EncryptUtils.AES.decryptData(_sPasswordKey, preRegistrationInfGson.getRand_str()).replace("\0","");
         } catch (Exception e) {
             kvConn.close();
             throw new AESDecryptException();
@@ -64,7 +61,7 @@ public class Registration {
                 , new Object[]{this.sId, _sUsername, _sPhoneNum, sTranPassword, sAuthPassword, _iType, 0, 0});
         rConn.close();
         String sToken=RandomUtils.getRandomString(64);
-        this.sPreToken = AESUtils.encryptData(sToken, preRegistrationInfGson.getRand_str());
+        this.sPreToken = EncryptUtils.AES.encryptData(sToken, preRegistrationInfGson.getRand_str());
         LoggedInUserInfGson loggedInUserInfGson = new LoggedInUserInfGson(this.sId, _sUsername, iType, 0, 0, sToken, System.currentTimeMillis());
         kvConn.setPrefix(LoggedInUserInfGson.sessionPrefix);
         kvConn.set(String.valueOf(this.sId), JsonUtils.toJson(loggedInUserInfGson), LoggedInUserInfGson.iSessionExpire);

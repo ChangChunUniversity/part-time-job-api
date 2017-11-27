@@ -41,7 +41,7 @@ public class ModifyUserInfo {
 
         String sPassword = "";
         if (password_key != null && password_key != "") {
-            sPassword = AESUtils.decryptData(password_key, authorizationUtils.getsToken());
+            sPassword = EncryptUtils.AES.decryptData(password_key, authorizationUtils.getsToken());
         }
 
         switch (action) {
