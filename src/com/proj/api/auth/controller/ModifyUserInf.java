@@ -85,7 +85,7 @@ public class ModifyUserInf {
         if (type < 0 && authority < 0 && status < 0) {
             throw new InvalidParamsException();
         }
-        if(status==2){
+        if (status == 2) {
             throw new ConvertUserTypeException();
         }
         //检查用户名是否存在
@@ -108,6 +108,8 @@ public class ModifyUserInf {
             this.sUserId = uuid;
             this.bUsername = true;
             this.bPassword = true;
+            this.bPhone_num = true;
+
             this.bType = true;
             this.bAuthority = true;
             this.bStatus = true;
@@ -134,7 +136,13 @@ public class ModifyUserInf {
             throw new RelationalDatabaseException(e);
         }
         rConn.close();
-        this.sUserId=sUserId;
+        this.sUserId = user_id;
+        this.bPhone_num = true;
+        this.bUsername = true;
+        this.bPassword = true;
+        this.bType = true;
+        this.bAuthority = true;
+        this.bStatus = true;
     }
 
     private void modUser(String sUserId, String username, String phone_num, String password, int type, int authority, int status) throws InvalidParamsException, RelationalDatabaseException, UserNotExistException, ConvertUserTypeException {
@@ -148,7 +156,7 @@ public class ModifyUserInf {
 
         //检查用户名和手机号码
         RelationalDatabase rConn = new RelationalDatabase();
-        ResultSet result = rConn.doQuery("SELECT uuid FROM user_auth WHERE username=? OR phone_num = ?", new String[]{username,phone_num});
+        ResultSet result = rConn.doQuery("SELECT uuid FROM user_auth WHERE username=? OR phone_num = ?", new String[]{username, phone_num});
         try {
             if (!result.first()) {
                 rConn.close();
@@ -169,7 +177,7 @@ public class ModifyUserInf {
                 this.bPassword = true;
             }
             if (type != -1) {
-                if(status==2){
+                if (status == 2) {
                     throw new ConvertUserTypeException();
                 }
                 rConn.doSQL("UPDATE user_auth SET type = ? WHERE uuid=?", new Object[]{type, sUserId});
@@ -183,7 +191,7 @@ public class ModifyUserInf {
                 rConn.doSQL("UPDATE user_auth SET status = ? WHERE uuid=?", new Object[]{status, sUserId});
                 this.bStatus = true;
             }
-            this.sUserId=sUserId;
+            this.sUserId = sUserId;
         } catch (SQLException e) {
             rConn.close();
             throw new RelationalDatabaseException(e);
@@ -223,5 +231,3 @@ public class ModifyUserInf {
         return check_code;
     }
 }
-
-
