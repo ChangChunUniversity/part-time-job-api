@@ -26,30 +26,30 @@ import java.io.IOException;
  */
 public class doModifyPwd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String retStr="";
+        String retStr = "";
         try {
-            String recvStr= InputStrUtils.getRecvString(request);
-            ModifyPasswordRecvGson modifyPasswordRecvGson= JsonUtils.fromJson(recvStr,ModifyPasswordRecvGson.class);
+            String recvStr = InputStrUtils.getRecvString(request);
+            ModifyPasswordRecvGson modifyPasswordRecvGson = JsonUtils.fromJson(recvStr, ModifyPasswordRecvGson.class);
 
-            ModifyPassword modifyPassword=new ModifyPassword(modifyPasswordRecvGson.getUser_id()
-                    ,modifyPasswordRecvGson.getExchange_password()
-                    ,modifyPasswordRecvGson.getCheck_code());
+            ModifyPassword modifyPassword = new ModifyPassword(modifyPasswordRecvGson.getUser_id()
+                    , modifyPasswordRecvGson.getExchange_password()
+                    , modifyPasswordRecvGson.getCheck_code());
 
-            retStr=JsonUtils.toJson(new ModifyPasswordRetGson());
+            retStr = JsonUtils.toJson(new ModifyPasswordRetGson());
         } catch (InvalidParamsException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (InvalidCheckCodeException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (AESDecryptException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (UserNotExistException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (UserNotAuthorizedException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (RelationalDatabaseException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (NonRelationalDatabaseException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (MalformedJsonException e) {
             retStr = e.getRetJson();
         } catch (UserDisableException e) {

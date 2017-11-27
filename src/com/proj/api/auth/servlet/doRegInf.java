@@ -20,15 +20,14 @@ import java.io.IOException;
 
 public class doRegInf extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String retStr = "";
-
+        String retStr;
         try {
             String sUsername = request.getParameter("username");
             String phone_num = request.getParameter("phone_num");
-            RegisterInformation registerInformation = new RegisterInformation(sUsername,phone_num);
-            RegisterInformationRetGson registerInformationRetGson=new RegisterInformationRetGson(
+            RegisterInformation registerInformation = new RegisterInformation(sUsername, phone_num);
+            RegisterInformationRetGson registerInformationRetGson = new RegisterInformationRetGson(
                     registerInformation.isbUsername()
-                    ,registerInformation.isbPhoneNum()
+                    , registerInformation.isbPhoneNum()
             );
             retStr = JsonUtils.toJson(registerInformationRetGson);
         } catch (UserNotAuthorizedException e) {

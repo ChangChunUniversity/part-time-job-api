@@ -26,7 +26,6 @@ import java.io.IOException;
  */
 public class doReg extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String sCallback = request.getParameter("callback");
         Gson json = new Gson();
         String retStr = "";
         try {
@@ -60,15 +59,11 @@ public class doReg extends HttpServlet {
             retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
-        if (sCallback == null) {
             response.getWriter().print(retStr);
-        } else {
-            response.getWriter().print(sCallback + "(" + retStr + ");");
-        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String sCallback = request.getParameter("callback");
         String retStr = "";
         Gson json = new Gson();
         try {
@@ -96,10 +91,6 @@ public class doReg extends HttpServlet {
             retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
-        if (sCallback == null) {
-            response.getWriter().print(retStr);
-        } else {
-            response.getWriter().print(sCallback + "(" + retStr + ");");
-        }
+        response.getWriter().print(retStr);
     }
 }

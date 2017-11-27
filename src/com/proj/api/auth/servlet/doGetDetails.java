@@ -21,14 +21,14 @@ import java.io.IOException;
  */
 public class doGetDetails extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String retStr="";
+        String retStr = "";
         try {
-            InfomationDetailsInfo infomationDetailsInfo=new InfomationDetailsInfo(
+            InfomationDetailsInfo infomationDetailsInfo = new InfomationDetailsInfo(
                     request.getParameter("auth_id"),
                     request.getParameter("user_id"),
                     request.getParameter("check_code")
             );
-            GetDetailsRetGson getDetailsRetGson=new GetDetailsRetGson(
+            GetDetailsRetGson getDetailsRetGson = new GetDetailsRetGson(
                     infomationDetailsInfo.getsUserId(),
                     infomationDetailsInfo.getsUserName(),
                     infomationDetailsInfo.getsPhoneNum(),
@@ -37,25 +37,25 @@ public class doGetDetails extends HttpServlet {
                     infomationDetailsInfo.getiStatus(),
                     infomationDetailsInfo.getsCheckCode()
             );
-            retStr= JsonUtils.toJson(getDetailsRetGson);
+            retStr = JsonUtils.toJson(getDetailsRetGson);
         } catch (RelationalDatabaseException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (InvalidOperationException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (UserNotAuthorizedException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (UserDisableException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (NonRelationalDatabaseException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (MalformedJsonException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (InvalidCheckCodeException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (UserNotExistException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         } catch (InvalidBackstageOperationException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         response.getWriter().print(retStr);
