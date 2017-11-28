@@ -79,7 +79,6 @@ public class doModifyInf extends HttpServlet {
         } catch (RelationalDatabaseException e) {
             retStr = e.getRetJson();
         }
-        response.setHeader("content-type", "text/html;charset=utf-8");
-        response.getWriter().print(retStr);
     }
+
 }

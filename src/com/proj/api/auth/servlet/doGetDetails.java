@@ -60,4 +60,5 @@ public class doGetDetails extends HttpServlet {
         response.setHeader("content-type", "text/html;charset=utf-8");
         response.getWriter().print(retStr);
     }
+
 }

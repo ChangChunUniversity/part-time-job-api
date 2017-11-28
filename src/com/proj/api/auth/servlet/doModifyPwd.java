@@ -31,7 +31,7 @@ public class doModifyPwd extends HttpServlet {
             String recvStr = InputStrUtils.getRecvString(request);
             ModifyPasswordRecvGson modifyPasswordRecvGson = JsonUtils.fromJson(recvStr, ModifyPasswordRecvGson.class);
 
-            ModifyPassword modifyPassword = new ModifyPassword(modifyPasswordRecvGson.getUser_id()
+            new ModifyPassword(modifyPasswordRecvGson.getUser_id()
                     , modifyPasswordRecvGson.getExchange_password()
                     , modifyPasswordRecvGson.getCheck_code());
 
