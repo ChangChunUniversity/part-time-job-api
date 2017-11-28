@@ -30,7 +30,7 @@ public class RandomUtils {
         return String.valueOf(random.nextInt());
     }
 
-    public static String getUUID(){
-        return UUID.randomUUID().toString();
+    public static String getUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
     }
 }
