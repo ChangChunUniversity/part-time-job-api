@@ -7,7 +7,7 @@ import com.proj.api.exception.other.InvalidParamsException;
  */
 public class ModifyPasswordRecvGson {
     private String user_id;
-    private String exchange_password;
+    private String new_password;
     private String check_code;
 
     public String getUser_id() throws InvalidParamsException {
@@ -22,16 +22,16 @@ public class ModifyPasswordRecvGson {
         this.user_id = user_id;
     }
 
-    public String getExchange_password() throws InvalidParamsException {
-        if (exchange_password == null) {
+    public String getNew_password() throws InvalidParamsException {
+        if (new_password == null) {
             throw new InvalidParamsException();
         } else {
-            return exchange_password;
+            return new_password;
         }
     }
 
-    public void setExchange_password(String exchange_password) {
-        this.exchange_password = exchange_password;
+    public void setNew_password(String new_password) {
+        this.new_password = new_password;
     }
 
     public String getCheck_code() throws InvalidParamsException {

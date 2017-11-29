@@ -7,17 +7,21 @@ public class LoggedInUserInfGson {
     public final static int iSessionExpire = 120;
     public final static String sessionPrefix = "user_inf_";
 
-    private String sId;
+    private String sLoginId;
+    private String sUserId;
     private String sUserName;
+    private String sPhoneNum;
     private int iType;
     private int iAuthority;
     private int iStatus;
     private String sToken;
     private long lLoginTime;
 
-    public LoggedInUserInfGson(String sId, String sUserName, int iType, int iAuthority, int iStatus, String sToken, long lLoginTime) {
-        this.sId = sId;
+    public LoggedInUserInfGson(String sLoginId, String sUserId, String sUserName, String sPhoneNum, int iType, int iAuthority, int iStatus, String sToken, long lLoginTime) {
+        this.sLoginId = sLoginId;
+        this.sUserId = sUserId;
         this.sUserName = sUserName;
+        this.sPhoneNum = sPhoneNum;
         this.iType = iType;
         this.iAuthority = iAuthority;
         this.iStatus = iStatus;
@@ -25,59 +29,47 @@ public class LoggedInUserInfGson {
         this.lLoginTime = lLoginTime;
     }
 
-    public String getsId() {
-        return sId;
+    public static int getiSessionExpire() {
+        return iSessionExpire;
     }
 
-    public void setsId(String sId) {
-        this.sId = sId;
+    public static String getSessionPrefix() {
+        return sessionPrefix;
+    }
+
+    public String getsLoginId() {
+        return sLoginId;
+    }
+
+    public String getsUserId() {
+        return sUserId;
     }
 
     public String getsUserName() {
         return sUserName;
     }
 
-    public void setsUserName(String sUserName) {
-        this.sUserName = sUserName;
+    public String getsPhoneNum() {
+        return sPhoneNum;
     }
 
     public int getiType() {
         return iType;
     }
 
-    public void setiType(int iType) {
-        this.iType = iType;
-    }
-
     public int getiAuthority() {
         return iAuthority;
-    }
-
-    public void setiAuthority(int iAuthority) {
-        this.iAuthority = iAuthority;
     }
 
     public int getiStatus() {
         return iStatus;
     }
 
-    public void setiStatus(int iStatus) {
-        this.iStatus = iStatus;
-    }
-
     public String getsToken() {
         return sToken;
     }
 
-    public void setsToken(String sToken) {
-        this.sToken = sToken;
-    }
-
     public long getlLoginTime() {
         return lLoginTime;
-    }
-
-    public void setlLoginTime(long lLoginTime) {
-        this.lLoginTime = lLoginTime;
     }
 }

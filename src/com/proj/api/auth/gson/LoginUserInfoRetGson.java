@@ -3,15 +3,15 @@ package com.proj.api.auth.gson;
 import com.proj.api.exception.error.Reason;
 
 /**
- * Created by jangitlau on 2017/11/27.
+ * Created by jangitlau on 2017/11/29.
  */
-public class GetDetailsRetGson {
+public class LoginUserInfoRetGson {
     private int err_code=0;
     private String reason= Reason.getReason(0);
     private InnerData data;
     private String check_code;
 
-    public GetDetailsRetGson(String user_id, String username, String phone_num, int type, int authority, int status, String check_code) {
+    public LoginUserInfoRetGson(String user_id, String username, String phone_num, int type, int authority, int status, String check_code) {
         this.data = new InnerData(user_id,username,phone_num,type,authority,status);
         this.check_code = check_code;
     }

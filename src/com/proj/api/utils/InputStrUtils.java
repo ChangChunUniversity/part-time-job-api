@@ -19,6 +19,19 @@ public class InputStrUtils {
         } catch (Exception e) {
             throw new InvalidParamsException();
         }
-        return buffer.toString();
+        String recvStr=buffer.toString();
+        if(recvStr==null||recvStr==""){
+            return "{}";
+        }else{
+            return buffer.toString();
+        }
+    }
+
+    public static String getPathInfo(javax.servlet.http.HttpServletRequest request) {
+        String sPathInfo = request.getPathInfo();
+        if (sPathInfo == null || sPathInfo == "") {
+            return "";
+        }
+        return sPathInfo;
     }
 }

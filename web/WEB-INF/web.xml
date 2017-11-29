@@ -14,41 +14,47 @@
     </filter-mapping>
 
     <!-- ========== User ========== -->
+    <!-- ===== 登录 ===== -->
     <servlet>
-        <servlet-name>doAuth</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.doAuth</servlet-class>
+        <servlet-name>Authorization</servlet-name>
+        <servlet-class>com.proj.api.auth.servlet.Authorization</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>doAuth</servlet-name>
-        <url-pattern>/api/user/auth</url-pattern>
+        <servlet-name>Authorization</servlet-name>
+        <url-pattern>/api/user/authorization</url-pattern>
     </servlet-mapping>
 
+    <!-- ===== 注册 ===== -->
     <servlet>
-        <servlet-name>doReg</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.doReg</servlet-class>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>com.proj.api.auth.servlet.Registration</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>doReg</servlet-name>
-        <url-pattern>/api/user/reg</url-pattern>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/api/user/registration</url-pattern>
     </servlet-mapping>
 
+    <!-- ===== 注册时检查字段 ===== -->
     <servlet>
-        <servlet-name>doModifyPwd</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.doModifyPwd</servlet-class>
+        <servlet-name>RegistrationInfo</servlet-name>
+        <servlet-class>com.proj.api.auth.servlet.RegistrationInfo</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>doModifyPwd</servlet-name>
-        <url-pattern>/api/user/modify_pwd</url-pattern>
+        <servlet-name>RegistrationInfo</servlet-name>
+        <url-pattern>/api/user/registration/info</url-pattern>
     </servlet-mapping>
-    
+
+    <!-- ===== 用户信息 ===== -->
     <servlet>
-        <servlet-name>doReginf</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.doRegInf</servlet-class>
+        <servlet-name>UserInfo</servlet-name>
+        <servlet-class>com.proj.api.auth.servlet.UserInfo</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>doReginf</servlet-name>
-        <url-pattern>/api/user/reginf</url-pattern>
+        <servlet-name>UserInfo</servlet-name>
+        <url-pattern>/api/user/info/*</url-pattern>
     </servlet-mapping>
+
+    <!-- ===== 后台用户修改信息 ===== -->
     <servlet>
         <servlet-name>doModifyInf</servlet-name>
         <servlet-class>com.proj.api.auth.servlet.doModifyInf</servlet-class>
@@ -57,14 +63,7 @@
         <servlet-name>doModifyInf</servlet-name>
         <url-pattern>/api/user/modify</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>doGetDetails</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.doGetDetails</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>doGetDetails</servlet-name>
-        <url-pattern>/api/user/details</url-pattern>
-    </servlet-mapping>
+
     <!-- ========== User ========== -->
 
 </web-app>

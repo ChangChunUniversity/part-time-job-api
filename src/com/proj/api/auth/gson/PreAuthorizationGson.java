@@ -7,7 +7,7 @@ public class PreAuthorizationGson {
     public final static int iSessionExpire = 60;
     public final static String sessionPrefix = "user_preauth_";
 
-    private String sId;
+    private String sUserId;
     private String sPhoneNum;
     private String sUserName;
     private String sTranPassword;
@@ -18,7 +18,7 @@ public class PreAuthorizationGson {
     private int iStatus;
 
     public PreAuthorizationGson(String sId, String sPhoneNum, String sUserName, String sTranPassword, String sAuthPassword, String sRandomKey, int iType, int iAuthority, int iStatus) {
-        this.sId = sId;
+        this.sUserId = sId;
         this.sPhoneNum = sPhoneNum;
         this.sUserName = sUserName;
         this.sTranPassword = sTranPassword;
@@ -38,12 +38,12 @@ public class PreAuthorizationGson {
         return sessionPrefix;
     }
 
-    public String getsId() {
-        return sId;
+    public void setsUserId(String sUserId) {
+        this.sUserId = sUserId;
     }
 
-    public void setsId(String sId) {
-        this.sId = sId;
+    public String getsUserId() {
+        return sUserId;
     }
 
     public String getsPhoneNum() {

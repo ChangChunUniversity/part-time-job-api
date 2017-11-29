@@ -15,6 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class AuthorizationUtils {
     private String sId;
     private String sUserName;
+    private String sPhoneNum;
     private int iType;
     private int iAuthority;
     private int iStatus;
@@ -32,8 +33,9 @@ public class AuthorizationUtils {
         if(loggedInUserInfGson.getiStatus()==3){
             throw new UserDisableException();
         }
-        this.sId=loggedInUserInfGson.getsId();
+        this.sId=loggedInUserInfGson.getsUserId();
         this.sUserName=loggedInUserInfGson.getsUserName();
+        this.sPhoneNum=loggedInUserInfGson.getsPhoneNum();
         this.iType=loggedInUserInfGson.getiType();
         this.iAuthority=loggedInUserInfGson.getiAuthority();
         this.iStatus=loggedInUserInfGson.getiStatus();
@@ -58,6 +60,10 @@ public class AuthorizationUtils {
 
     public String getsUserName() {
         return sUserName;
+    }
+
+    public String getsPhoneNum() {
+        return sPhoneNum;
     }
 
     public int getiType() {

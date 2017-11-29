@@ -16,10 +16,16 @@ import org.apache.commons.codec.digest.DigestUtils;
  * Created by jangitlau on 2017/11/3.
  */
 public class Authorization {
-    private String iId;
+    private String sLoginId;
+    private String sUserId;
     private String sUsername;
-    private String sPreToken;
+    private String sPhoneNum;
     private int iType;
+    private int iAuthority;
+    private int iStatus;
+    private String sPreToken;
+    private int iExpire;
+
     public Authorization(String _sUsername, String _sRandStr, String sPrePassword) throws NonRelationalDatabaseException, PasswordNotCorrectException, AESEncryptException, MalformedJsonException, InvalidOperationException, UserDisableException {
         KeyValueDatabase kvConn = new KeyValueDatabase(PreAuthorizationGson.sessionPrefix); //打开键值数据库
         /* 判断是否进行预授权，预授权时应以用户名为值向键值数据库
@@ -41,44 +47,72 @@ public class Authorization {
             kvConn.close();
             throw new PasswordNotCorrectException(); //验证密码不正确，基本上在随机数正确的情况下是不会发生的，需要发出登录警告
         }
-        if(preAuthorizationGson.getiStatus()==3){
+        if (preAuthorizationGson.getiStatus() == 3) {
             throw new UserDisableException();
         }
         kvConn.del(_sUsername);
+        String sLoginId = SensitiveDataUtils.getLoginId(preAuthorizationGson.getsUserId(), 0);
         String sToken = RandomUtils.getRandomString(64); //生成64位的token以供服务端以及客户端进行通信
         LoggedInUserInfGson loggedInUserInfGson = new LoggedInUserInfGson( //构建结构储存用户的关键信息
-                preAuthorizationGson.getsId()
+                sLoginId
+                , preAuthorizationGson.getsUserId()
                 , preAuthorizationGson.getsUserName()
+                , preAuthorizationGson.getsPhoneNum()
                 , preAuthorizationGson.getiType()
                 , preAuthorizationGson.getiAuthority()
                 , preAuthorizationGson.getiStatus()
                 , sToken
                 , System.currentTimeMillis());
-        String iId = preAuthorizationGson.getsId();
         kvConn.setPrefix(LoggedInUserInfGson.sessionPrefix);
         // 以用户ID为键值将用户信息(包括Token)储存进关系型数据库中
-        kvConn.set(String.valueOf(iId), JsonUtils.toJson(loggedInUserInfGson), LoggedInUserInfGson.iSessionExpire);
+        kvConn.set(sLoginId, JsonUtils.toJson(loggedInUserInfGson), LoggedInUserInfGson.iSessionExpire);
         kvConn.close();
-        this.iId=preAuthorizationGson.getsId();
-        this.sUsername=preAuthorizationGson.getsUserName();
+        // 返回数据
+        this.sLoginId = sLoginId;
+        this.sUserId = preAuthorizationGson.getsUserId();
+        this.sUsername = preAuthorizationGson.getsUserName();
+        this.sPhoneNum = preAuthorizationGson.getsPhoneNum();
+        this.iType = preAuthorizationGson.getiType();
+        this.iAuthority = preAuthorizationGson.getiAuthority();
+        this.iStatus = preAuthorizationGson.getiStatus();
         //对Token进行加密并返回客户端
-        this.sPreToken= EncryptUtils.AES.encryptData(sToken, preAuthorizationGson.getsTranPassword());
-        this.iType=preAuthorizationGson.getiType();
+        this.sPreToken = EncryptUtils.AES.encryptData(sToken, preAuthorizationGson.getsTranPassword());
+        this.iExpire = LoggedInUserInfGson.iSessionExpire;
     }
 
-    public String getiId() {
-        return iId;
+    public String getsLoginId() {
+        return sLoginId;
+    }
+
+    public String getsUserId() {
+        return sUserId;
     }
 
     public String getsUsername() {
         return sUsername;
     }
 
-    public String getsPreToken() {
-        return sPreToken;
+    public String getsPhoneNum() {
+        return sPhoneNum;
     }
 
     public int getiType() {
         return iType;
+    }
+
+    public int getiAuthority() {
+        return iAuthority;
+    }
+
+    public int getiStatus() {
+        return iStatus;
+    }
+
+    public String getsPreToken() {
+        return sPreToken;
+    }
+
+    public int getiExpire() {
+        return iExpire;
     }
 }

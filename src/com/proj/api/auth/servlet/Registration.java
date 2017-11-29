@@ -11,7 +11,6 @@ import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.auth.controller.PreRegistration;
-import com.proj.api.auth.controller.Registration;
 import com.proj.api.auth.gson.*;
 import com.proj.api.utils.InputStrUtils;
 
@@ -24,22 +23,28 @@ import java.io.IOException;
 /**
  * Created by jangitlau on 2017/11/3.
  */
-public class doReg extends HttpServlet {
+public class Registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Gson json = new Gson();
         String retStr = "";
         try {
             String recvStr = InputStrUtils.getRecvString(request);
             RegistrationRecvGson registrationRecvGson = json.fromJson(recvStr, RegistrationRecvGson.class);
-            Registration registration = new Registration(
+            com.proj.api.auth.controller.Registration registration = new com.proj.api.auth.controller.Registration(
                     registrationRecvGson.getUsername()
                     , registrationRecvGson.getPhone_num()
                     , registrationRecvGson.getPassword_key()
                     , registrationRecvGson.getType());
             RegistrationRetGson registrationRetGson = new RegistrationRetGson(
-                    registration.getsPreToken()
-                    , registration.getsId()
-                    , registration.getiType());
+                    registration.getsLoginId(),
+                    registration.getsUserId(),
+                    registration.getsUsername(),
+                    registration.getsPhoneNum(),
+                    registration.getiType(),
+                    registration.getiAuthority(),
+                    registration.getiStatus(),
+                    registration.getsPreToken(),
+                    registration.getiExpire());
             retStr = json.toJson(registrationRetGson);
         } catch (InvalidParamsException e) {
             retStr = e.getRetJson();

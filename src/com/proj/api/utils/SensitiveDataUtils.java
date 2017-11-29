@@ -23,6 +23,10 @@ public class SensitiveDataUtils {
         return DigestUtils.md5Hex(_sClearPassword + SensitiveDataUtils.sTranPasswordSalt);
     }
 
+    public static String getLoginId(String _sUserId,int _sMethod){
+        return _sUserId+"-"+String.valueOf(_sMethod);
+    }
+
     private static final String sStuCertPrivateKey="";
 
     public static String doStuCertInfEncrypt(String sUserId,String sStuId,String sStuPwd,String sIdCode

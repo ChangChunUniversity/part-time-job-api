@@ -9,7 +9,6 @@ import com.proj.api.exception.auth.UserDisableException;
 import com.proj.api.exception.auth.UserNotExistException;
 import com.proj.api.exception.utils.AESEncryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
-import com.proj.api.auth.controller.Authorization;
 import com.proj.api.auth.controller.PreAuthorization;
 import com.proj.api.auth.gson.AuthorizationRecvGson;
 import com.proj.api.auth.gson.AuthorizationRetGson;
@@ -22,21 +21,26 @@ import java.io.IOException;
 /**
  * Created by jangitlau on 2017/11/3.
  */
-public class doAuth extends javax.servlet.http.HttpServlet {
+public class Authorization extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String retStr = "";
         try {
             String recvStr = InputStrUtils.getRecvString(request);
             AuthorizationRecvGson authorizationRecvGson = JsonUtils.fromJson(recvStr, AuthorizationRecvGson.class);
-            Authorization authorization = new Authorization(
+            com.proj.api.auth.controller.Authorization authorization = new com.proj.api.auth.controller.Authorization(
                     authorizationRecvGson.getUsername(),
                     authorizationRecvGson.getRand_str(),
                     authorizationRecvGson.getPre_password());
             AuthorizationRetGson authorizationRetGson = new AuthorizationRetGson(
+                    authorization.getsLoginId(),
+                    authorization.getsUserId(),
                     authorization.getsUsername(),
-                    authorization.getiId(),
+                    authorization.getsPhoneNum(),
+                    authorization.getiType(),
+                    authorization.getiAuthority(),
+                    authorization.getiStatus(),
                     authorization.getsPreToken(),
-                    authorization.getiType()
+                    authorization.getiExpire()
             );
             retStr = JsonUtils.toJson(authorizationRetGson);
         } catch (InvalidParamsException e) {
