@@ -6,7 +6,7 @@ import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.auth.UserDisableException;
 import com.proj.api.exception.auth.UserNotAuthorizedException;
 import com.proj.api.exception.utils.MalformedJsonException;
-import com.proj.api.auth.gson.LoggedInUserInfGson;
+import com.proj.api.auth.authorization.gson.LoggedInUserInfGson;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -22,13 +22,13 @@ public class AuthorizationUtils {
     private String sToken;
     private long lLoginTime;
 
-    public AuthorizationUtils(String _sUserId) throws NonRelationalDatabaseException, UserNotAuthorizedException, MalformedJsonException, UserDisableException {
+    public AuthorizationUtils(String _sLoginId) throws NonRelationalDatabaseException, UserNotAuthorizedException, MalformedJsonException, UserDisableException {
         KeyValueDatabase kvConn=new KeyValueDatabase(LoggedInUserInfGson.sessionPrefix);
-        if(!kvConn.exists(_sUserId)){
+        if(!kvConn.exists(_sLoginId)){
             kvConn.close();
             throw new UserNotAuthorizedException();
         }
-        LoggedInUserInfGson loggedInUserInfGson=JsonUtils.fromJson(kvConn.get(_sUserId),LoggedInUserInfGson.class);
+        LoggedInUserInfGson loggedInUserInfGson=JsonUtils.fromJson(kvConn.get(_sLoginId),LoggedInUserInfGson.class);
         kvConn.close();
         if(loggedInUserInfGson.getiStatus()==3){
             throw new UserDisableException();

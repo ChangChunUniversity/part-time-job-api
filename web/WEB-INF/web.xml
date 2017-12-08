@@ -14,54 +14,75 @@
     </filter-mapping>
 
     <!-- ========== User ========== -->
-    <!-- ===== 登录 ===== -->
+    <!-- === 用户登录接口 https://www.showdoc.cc/1682227?page_id=15495488 === -->
     <servlet>
-        <servlet-name>Authorization</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.Authorization</servlet-class>
+        <servlet-name>authorization</servlet-name>
+        <servlet-class>com.proj.api.auth.authorization.servlet.Authorization</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Authorization</servlet-name>
+        <servlet-name>authorization</servlet-name>
         <url-pattern>/api/user/authorization</url-pattern>
     </servlet-mapping>
 
-    <!-- ===== 注册 ===== -->
+    <!-- === 用户注册接口 https://www.showdoc.cc/1682227?page_id=15506873 === -->
     <servlet>
-        <servlet-name>Registration</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.Registration</servlet-class>
+        <servlet-name>registration</servlet-name>
+        <servlet-class>com.proj.api.auth.registration.servlet.Registration</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Registration</servlet-name>
+        <servlet-name>registration</servlet-name>
         <url-pattern>/api/user/registration</url-pattern>
     </servlet-mapping>
 
-    <!-- ===== 注册时检查字段 ===== -->
+    <!-- === 注册验证接口 https://www.showdoc.cc/1682227?page_id=15668994 === -->
     <servlet>
-        <servlet-name>RegistrationInfo</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.RegistrationInfo</servlet-class>
+        <servlet-name>registrationinfo</servlet-name>
+        <servlet-class>com.proj.api.auth.registration.servlet.RegistrationInfo</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RegistrationInfo</servlet-name>
-        <url-pattern>/api/user/registration/info</url-pattern>
+        <servlet-name>registrationinfo</servlet-name>
+        <url-pattern>/api/user/registration/info/*</url-pattern>
     </servlet-mapping>
 
-    <!-- ===== 用户信息 ===== -->
+    <!-- === 后台用户信息接口 https://www.showdoc.cc/1682227?page_id=15506930 === -->
     <servlet>
-        <servlet-name>UserInfo</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.UserInfo</servlet-class>
+        <servlet-name>backgroundinfo</servlet-name>
+        <servlet-class>com.proj.api.auth.backstage.servlet.BackgroundInfoDetail</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>UserInfo</servlet-name>
-        <url-pattern>/api/user/info/*</url-pattern>
+        <servlet-name>backgroundinfo</servlet-name>
+        <url-pattern>/api/user/background/info/detail/*</url-pattern>
     </servlet-mapping>
 
-    <!-- ===== 后台用户修改信息 ===== -->
+    <!-- === 修改用户信息接口(密码) https://www.showdoc.cc/1682227?page_id=15512141 === -->
     <servlet>
-        <servlet-name>doModifyInf</servlet-name>
-        <servlet-class>com.proj.api.auth.servlet.doModifyInf</servlet-class>
+        <servlet-name>modifyuserpassword</servlet-name>
+        <servlet-class>com.proj.api.auth.info.servlet.ModifyPassword</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>doModifyInf</servlet-name>
-        <url-pattern>/api/user/modify</url-pattern>
+        <servlet-name>modifyuserpassword</servlet-name>
+        <url-pattern>/api/user/info/password</url-pattern>
+    </servlet-mapping>
+
+    <!-- === 修改用户信息接口(手机) https://www.showdoc.cc/1682227?page_id=15634578 === -->
+    <servlet>
+        <servlet-name>modifyuserphonenum</servlet-name>
+        <servlet-class>com.proj.api.auth.info.servlet.ModifyPhoneNum</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>modifyuserphonenum</servlet-name>
+        <url-pattern>/api/user/info/phone_num</url-pattern>
+    </servlet-mapping>
+
+    <!-- === 用户信息接口(查看) https://www.showdoc.cc/1682227?page_id=15512792 === -->
+    <servlet>
+        <servlet-name>userinfodetail</servlet-name>
+        <servlet-class>com.proj.api.auth.info.servlet.UserInfoDetail</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userinfodetail</servlet-name>
+        <url-pattern>/api/user/info/detail
+        </url-pattern>
     </servlet-mapping>
 
     <!-- ========== User ========== -->
