@@ -47,7 +47,7 @@ public class ModifyUserInfo {
         RelationalDatabase rDbConn = new RelationalDatabase();
         ResultSet rs;
         try {
-            rs = rDbConn.doQuery("SELECT UUID,USERNAME,PHONE_NUM,AUTH_PASSWORD,TRAN_PASSWORD,TYPE,AUTHORIY,STATUS FROM USER_AUTH WHERE UUID = ?", new String[]{user_id});
+            rs = rDbConn.doQuery("SELECT USERNAME,PHONE_NUM,AUTH_PASSWORD,TRAN_PASSWORD,TYPE,AUTHORITY,STATUS FROM USER_AUTH WHERE UUID = ?", new String[]{user_id});
             if (rs.first()) {
                 username = username != "" ? username : rs.getString("username");
                 phone_num = phone_num != "" ? phone_num : rs.getString("phone_num");
