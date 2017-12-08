@@ -45,7 +45,9 @@ public class AuthorizationUtils {
 
     //验证参数是否正确，输入验证参数按照字母顺序排列的值以及验证码，错误抛出异常(全部小写字母)
     public void checkParams(String _sParamSet,String _CheckCode) throws InvalidCheckCodeException {
-        if(!DigestUtils.md5Hex((_sParamSet+this.sToken).toLowerCase()).toLowerCase().equals(_CheckCode.toLowerCase())){
+        System.out.println(_sParamSet+this.sToken);
+        System.out.println(DigestUtils.md5Hex(_sParamSet+this.sToken));
+        if(!DigestUtils.md5Hex(_sParamSet+this.sToken).toLowerCase().equals(_CheckCode.toLowerCase())){
             throw new InvalidCheckCodeException();
         }
     }

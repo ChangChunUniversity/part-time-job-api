@@ -25,7 +25,7 @@ public class UserInfoDetail extends HttpServlet {
         String retStr = "";
         try {
             InputStrUtils inputStrUtils = new InputStrUtils(request);
-            String sUserId = inputStrUtils.getPathInfo();
+//            String sUserId = inputStrUtils.getPathInfo();
             String sLoginId = inputStrUtils.getRequiredParameter("login_id");
             String sCheckCode = inputStrUtils.getRequiredParameter("check_code");
             com.proj.api.auth.info.controller.UserInfoDetail userInfoDetail = new com.proj.api.auth.info.controller.UserInfoDetail(

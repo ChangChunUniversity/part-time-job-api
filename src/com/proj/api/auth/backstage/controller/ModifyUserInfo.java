@@ -63,7 +63,7 @@ public class ModifyUserInfo {
             throw new RelationalDatabaseException(e);
         }
         //开始修改用户
-        rDbConn.doSQL("UPDATE USER_AUTH SET USERNAME=?,PHONE_NUM=?,AUTH_PASSWORD=?,TRAN_PASSWORD=?,TYPE=?,AUTHORIY=?,STATUS=? WHERE UUID=?"
+        rDbConn.doSQL("UPDATE USER_AUTH SET USERNAME=?,PHONE_NUM=?,AUTH_PASSWORD=?,TRAN_PASSWORD=?,TYPE=?,AUTHORITY=?,STATUS=? WHERE UUID=?"
                 , new Object[]{username, phone_num, sAuthPassword, sTranPassword, type, authority, status, user_id});
         this.sUserId = user_id;
         this.sCheckCode = authorizationUtils.getCheckCode(this.sUserId);

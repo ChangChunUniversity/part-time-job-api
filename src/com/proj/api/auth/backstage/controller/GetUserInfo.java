@@ -35,9 +35,9 @@ public class GetUserInfo {
         RelationalDatabase rDbConn = new RelationalDatabase();
         ResultSet rs;
         try {
-            rs = rDbConn.doQuery("SELECT UUID,USERNAME,PHONE_NUM,TYPE,AUTHORIY,STATUS FROM USER_AUTH WHERE UUID = ?", new String[]{user_id});
+            rs = rDbConn.doQuery("SELECT UUID,USERNAME,PHONE_NUM,TYPE,AUTHORITY,STATUS FROM USER_AUTH WHERE UUID = ?", new String[]{user_id});
             if (rs.first()) {
-                this.user_id = rs.getString("user_id");
+                this.user_id = rs.getString("uuid");
                 this.username = rs.getString("username");
                 this.phone_num = rs.getString("phone_num");
                 this.type = rs.getInt("type");
