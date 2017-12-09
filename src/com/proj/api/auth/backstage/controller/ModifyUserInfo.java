@@ -40,7 +40,7 @@ public class ModifyUserInfo {
             throw new InvalidBackstageOperationException();
         }
 
-        String sClearPassword = EncryptUtils.AES.decryptData(password_key, authorizationUtils.getsToken());//对上传的密码进行解密
+        String sClearPassword = authorizationUtils.getSensitiveData(password_key);//对上传的密码进行解密
         String sTranPassword = SensitiveDataUtils.toTranpassword(sClearPassword);//计算传输密码
         String sAuthPassword = SensitiveDataUtils.toAuthpassword(sClearPassword);//计算授权密码
 

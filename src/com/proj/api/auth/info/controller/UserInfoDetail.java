@@ -2,7 +2,6 @@ package com.proj.api.auth.info.controller;
 /**
  * author:Jerry
  */
-import com.proj.api.database.RelationalDatabase;
 import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.database.RelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
@@ -10,9 +9,6 @@ import com.proj.api.exception.auth.*;
 import com.proj.api.exception.other.InvalidParamsException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.utils.AuthorizationUtils;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class UserInfoDetail {
     private String sUserId;
@@ -26,7 +22,7 @@ public class UserInfoDetail {
     public UserInfoDetail(String login_id, String check_code) throws RelationalDatabaseException, InvalidOperationException, UserNotAuthorizedException, UserDisableException, NonRelationalDatabaseException, MalformedJsonException, InvalidCheckCodeException, UserNotExistException, InvalidBackstageOperationException, InvalidParamsException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(login_id);
         authorizationUtils.checkParams(login_id, check_code);
-        this.sUserId = authorizationUtils.getsId();
+        this.sUserId = authorizationUtils.getsUserId();
         this.sUserName = authorizationUtils.getsUserName();
         this.sPhoneNum = authorizationUtils.getsPhoneNum();
         this.iType = authorizationUtils.getiType();

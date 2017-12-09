@@ -5,6 +5,7 @@ import com.proj.api.exception.database.NonRelationalDatabaseException;
 import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.auth.UserDisableException;
 import com.proj.api.exception.auth.UserNotAuthorizedException;
+import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.auth.authorization.gson.LoggedInUserInfGson;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,7 +14,8 @@ import org.apache.commons.codec.digest.DigestUtils;
  * Created by jangitlau on 2017/11/5.
  */
 public class AuthorizationUtils {
-    private String sId;
+    private String sLoginId;
+    private String sUserId;
     private String sUserName;
     private String sPhoneNum;
     private int iType;
@@ -33,7 +35,7 @@ public class AuthorizationUtils {
         if(loggedInUserInfGson.getiStatus()==3){
             throw new UserDisableException();
         }
-        this.sId=loggedInUserInfGson.getsUserId();
+        this.sUserId =loggedInUserInfGson.getsUserId();
         this.sUserName=loggedInUserInfGson.getsUserName();
         this.sPhoneNum=loggedInUserInfGson.getsPhoneNum();
         this.iType=loggedInUserInfGson.getiType();
@@ -52,12 +54,27 @@ public class AuthorizationUtils {
         }
     }
 
+    //输入参数获取校验码
     public String getCheckCode(String _sParamSet){
         return DigestUtils.md5Hex(_sParamSet+this.getsToken());
     }
 
-    public String getsId() {
-        return sId;
+    //获取由Token加密的明文数据
+    public String getSensitiveData(String _sCiphertext) throws AESDecryptException {
+        return EncryptUtils.AES.decryptData(_sCiphertext,this.getsToken());
+    }
+
+    //登出
+    public void doLogOut() throws NonRelationalDatabaseException {
+        KeyValueDatabase kvConn=new KeyValueDatabase(LoggedInUserInfGson.sessionPrefix);
+        if(kvConn.exists(sUserId)){
+            kvConn.del(sUserId);
+        }
+        kvConn.close();
+    }
+
+    public String getsUserId() {
+        return sUserId;
     }
 
     public String getsUserName() {

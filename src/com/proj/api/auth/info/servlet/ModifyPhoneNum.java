@@ -4,7 +4,12 @@ import com.proj.api.auth.info.controller.PreModifyPhoneNum;
 import com.proj.api.auth.info.gson.ModifyPhoneNumRecvGson;
 import com.proj.api.auth.info.gson.ModifyPhoneNumRetGson;
 import com.proj.api.auth.info.gson.PreModifyPhoneNumRetGson;
+import com.proj.api.exception.auth.*;
+import com.proj.api.exception.database.NonRelationalDatabaseException;
+import com.proj.api.exception.database.RelationalDatabaseException;
+import com.proj.api.exception.other.InvalidCheckCodeException;
 import com.proj.api.exception.other.InvalidParamsException;
+import com.proj.api.exception.utils.AESDecryptException;
 import com.proj.api.exception.utils.MalformedJsonException;
 import com.proj.api.utils.InputStrUtils;
 import com.proj.api.utils.JsonUtils;
@@ -36,6 +41,24 @@ public class ModifyPhoneNum extends HttpServlet {
             retStr=e.getRetJson();
         } catch (MalformedJsonException e) {
             retStr=e.getRetJson();
+        } catch (UserNotAuthorizedException e) {
+            retStr=e.getRetJson();
+        } catch (InvalidPhoneVerificationCodeException e) {
+            retStr=e.getRetJson();
+        } catch (UserDisableException e) {
+            retStr=e.getRetJson();
+        } catch (RelationalDatabaseException e) {
+            retStr=e.getRetJson();
+        } catch (InvalidCheckCodeException e) {
+            retStr=e.getRetJson();
+        } catch (NonRelationalDatabaseException e) {
+            retStr=e.getRetJson();
+        } catch (AESDecryptException e) {
+            retStr=e.getRetJson();
+        } catch (InvalidOperationException e) {
+            retStr=e.getRetJson();
+        } catch (UserNotExistException e) {
+            retStr=e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         response.getWriter().print(retStr);
@@ -47,10 +70,21 @@ public class ModifyPhoneNum extends HttpServlet {
             InputStrUtils inputStrUtils = new InputStrUtils(request);
             String sLoginId = inputStrUtils.getRequiredParameter("login_id");
             String sPhoneNum = inputStrUtils.getRequiredParameter("phone_num");
-            PreModifyPhoneNum preModifyPhoneNum = new PreModifyPhoneNum(sLoginId, sPhoneNum);
-            retStr= JsonUtils.toJson(new PreModifyPhoneNumRetGson());
+            String sCheckCode = inputStrUtils.getRequiredParameter("check_code");
+            PreModifyPhoneNum preModifyPhoneNum = new PreModifyPhoneNum(sLoginId, sPhoneNum, sCheckCode);
+            retStr = JsonUtils.toJson(new PreModifyPhoneNumRetGson());
         } catch (InvalidParamsException e) {
-            retStr=e.getRetJson();
+            retStr = e.getRetJson();
+        } catch (UserNotAuthorizedException e) {
+            retStr = e.getRetJson();
+        } catch (UserDisableException e) {
+            retStr = e.getRetJson();
+        } catch (MalformedJsonException e) {
+            retStr = e.getRetJson();
+        } catch (NonRelationalDatabaseException e) {
+            retStr = e.getRetJson();
+        } catch (InvalidCheckCodeException e) {
+            retStr = e.getRetJson();
         }
         response.setHeader("content-type", "text/html;charset=utf-8");
         response.getWriter().print(retStr);
