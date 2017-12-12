@@ -1,6 +1,7 @@
 package com.proj.api.auth.authorization.gson;
 
 import com.proj.api.exception.other.InvalidParamsException;
+import com.proj.api.utils.InputStrUtils;
 
 /**
  * Created by jangitlau on 2017/11/3.
@@ -11,11 +12,7 @@ public class AuthorizationRecvGson {
     private String pre_password;
 
     public String getUsername() throws InvalidParamsException {
-        if (username == null) {
-            throw new InvalidParamsException();
-        } else {
-            return username;
-        }
+        return InputStrUtils.filterRequiredParameter(username);
     }
 
     public void setUsername(String username) {
@@ -23,11 +20,8 @@ public class AuthorizationRecvGson {
     }
 
     public String getRand_str() throws InvalidParamsException {
-        if (rand_str == null) {
-            throw new InvalidParamsException();
-        } else {
-            return rand_str;
-        }
+        return InputStrUtils.filterRequiredParameter(rand_str);
+
     }
 
     public void setRand_str(String rand_str) {
@@ -35,11 +29,7 @@ public class AuthorizationRecvGson {
     }
 
     public String getPre_password() throws InvalidParamsException {
-        if (pre_password == null) {
-            throw new InvalidParamsException();
-        } else {
-            return pre_password;
-        }
+        return InputStrUtils.filterRequiredParameter(pre_password);
     }
 
     public void setPre_password(String pre_password) {

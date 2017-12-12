@@ -66,4 +66,28 @@ public class InputStrUtils {
         }
         return false;
     }
+
+    public static String filterRequiredParameter(String _sParam) throws InvalidParamsException {
+        if(_sParam==null||_sParam==""){
+            throw new InvalidParamsException();
+        }else{
+            return _sParam;
+        }
+    }
+
+    public static String filterOptionalParameter(String _sParam){
+        return _sParam;
+    }
+
+    public static int filterRequiredParameter(int _iParam) throws InvalidParamsException {
+        if(_iParam<=0){
+            throw new InvalidParamsException();
+        }else{
+            return _iParam;
+        }
+    }
+
+    public static int filterOptionalParameter(int _iParam){
+        return _iParam;
+    }
 }

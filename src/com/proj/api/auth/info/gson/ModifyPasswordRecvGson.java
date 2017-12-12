@@ -1,6 +1,7 @@
 package com.proj.api.auth.info.gson;
 
 import com.proj.api.exception.other.InvalidParamsException;
+import com.proj.api.utils.InputStrUtils;
 
 /**
  * Created by jangitlau on 2017/11/15.
@@ -11,11 +12,7 @@ public class ModifyPasswordRecvGson {
     private String check_code;
 
     public String getUser_id() throws InvalidParamsException {
-        if (user_id == null) {
-            throw new InvalidParamsException();
-        } else {
-            return user_id;
-        }
+        return InputStrUtils.filterRequiredParameter(user_id);
     }
 
     public void setUser_id(String user_id) {
@@ -23,11 +20,7 @@ public class ModifyPasswordRecvGson {
     }
 
     public String getNew_password() throws InvalidParamsException {
-        if (new_password == null) {
-            throw new InvalidParamsException();
-        } else {
-            return new_password;
-        }
+        return InputStrUtils.filterRequiredParameter(new_password);
     }
 
     public void setNew_password(String new_password) {
@@ -35,11 +28,7 @@ public class ModifyPasswordRecvGson {
     }
 
     public String getCheck_code() throws InvalidParamsException {
-        if (check_code == null) {
-            throw new InvalidParamsException();
-        } else {
-            return check_code;
-        }
+        return InputStrUtils.filterRequiredParameter(check_code);
     }
 
     public void setCheck_code(String check_code) {

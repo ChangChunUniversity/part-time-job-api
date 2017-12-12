@@ -1,10 +1,16 @@
 package com.proj.api.database;
 
+import com.google.gson.reflect.TypeToken;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.proj.api.exception.database.RelationalDatabaseException;
+import com.proj.api.utils.JsonUtils;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Type;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by jangitlau on 2017/11/2.
@@ -127,4 +133,17 @@ public class RelationalDatabase {
             throw new RelationalDatabaseException(e);
         }
     }
+
+    public String ArrayToString(String[] _oArray){
+        ArrayList<String> arrayList=new ArrayList<String>();
+        for( String pic_token:_oArray){
+            arrayList.add(pic_token);
+        }
+        return JsonUtils.toJson(arrayList);
+    }
+
+    public String[] StringToArray(String _sArray){
+        return JsonUtils.gson.fromJson(_sArray, new TypeToken<ArrayList<String>>() {}.getType());
+    }
+
 }

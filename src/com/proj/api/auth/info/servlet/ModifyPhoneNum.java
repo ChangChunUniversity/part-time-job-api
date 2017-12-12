@@ -31,7 +31,7 @@ public class ModifyPhoneNum extends HttpServlet {
             InputStrUtils inputStrUtils = new InputStrUtils(request);
             String recvStr = inputStrUtils.getRecvString();
             ModifyPhoneNumRecvGson modifyPhoneNumRecvGson=JsonUtils.fromJson(recvStr,ModifyPhoneNumRecvGson.class);
-            com.proj.api.auth.info.controller.ModifyPhoneNum modifyPhoneNum = new com.proj.api.auth.info.controller.ModifyPhoneNum(
+            new com.proj.api.auth.info.controller.ModifyPhoneNum(
                     modifyPhoneNumRecvGson.getLogin_id(),
                     modifyPhoneNumRecvGson.getPhone_checkcode(),
                     modifyPhoneNumRecvGson.getCheck_code()

@@ -33,6 +33,8 @@ public class Reason {
             case 416:return "路径不存在"; //InvaildPathException
             case 417:return "无效的手机号码"; //InvalidPhoneNumException
             case 418:return "无效的手机校验码"; //InvalidPhoneVerificationCodeException
+            case 419:return "无效的认证类别"; //InvalidCertTypeException
+            case 420:return "已经存在认证"; //UserCertAlreadyExistException
 
             case 500:return "系统内部错误";
             case 501:return "非关系型数据库出现错误"; //NonRelationalDatabaseException
