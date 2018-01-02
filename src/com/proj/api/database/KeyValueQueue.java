@@ -1,7 +1,6 @@
 package com.proj.api.database;
 
 import com.proj.api.exception.database.NonRelationalDatabaseException;
-import com.proj.api.utils.JedisPoolUtils;
 import com.proj.api.utils.RandomUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

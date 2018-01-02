@@ -38,13 +38,16 @@ public class ModifyCompanyInfo {
             , int industry_type, int co_type, String org_code, String biz_code, String org_pic, String biz_pic, int co_scale
             , String co_desc, String contact_person, String contact_phone, String contact_mail, String co_site, String[] co_pic
             , int co_city, String co_addr, String check_code) throws UserNotAuthorizedException, UserDisableException, NonRelationalDatabaseException,
-    MalformedJsonException, InvalidOperationException, InvalidParamsException, RelationalDatabaseException, SQLException, UserNotExistException, InvalidCheckCodeException {
+            MalformedJsonException, InvalidOperationException, InvalidParamsException, RelationalDatabaseException, SQLException, UserNotExistException, InvalidCheckCodeException, InvalidBackstageOperationException {
         AuthorizationUtils authorizationUtils = new AuthorizationUtils(auth_id);
-        authorizationUtils.checkParams(action+auth_id+biz_code+biz_pic+cert_status+check_code+co_addr+co_city
+        authorizationUtils.checkParams(action+auth_id+biz_code+biz_pic+cert_status+co_addr+co_city
                 +co_desc+co_name+co_nickname+co_pic+co_scale+co_site+co_type+contact_mail+contact_person+contact_phone
                 +industry_type+org_code+org_pic+user_id,check_code);
-        if (authorizationUtils.getiType() != 3 || authorizationUtils.getiAuthority() < 5) {
+        if (authorizationUtils.getiType() != 3) {
             throw new InvalidOperationException();
+        }
+        if(authorizationUtils.getiAuthority() < 5){
+            throw new InvalidBackstageOperationException();
         }
         switch (action) {
             case "add":

@@ -1,4 +1,4 @@
-package com.proj.api.utils;
+package com.proj.api.database;
 
 import redis.clients.jedis.JedisPoolConfig;
 
