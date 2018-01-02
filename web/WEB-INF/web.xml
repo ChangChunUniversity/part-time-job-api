@@ -87,4 +87,16 @@
 
     <!-- ========== User ========== -->
 
+    <!-- ========== Cerf ========== -->
+    <!-- === 认证查看接口 https://www.showdoc.cc/1682227?page_id=15515949 === -->
+    <servlet>
+        <servlet-name>CertificationDetail</servlet-name>
+        <servlet-class>com.proj.api.cert.servlet.CertificationDetail</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertificationDetail</servlet-name>
+        <url-pattern>/api/certification/detail</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========== Cerf ========== -->
 </web-app>
