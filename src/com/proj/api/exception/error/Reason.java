@@ -35,6 +35,8 @@ public class Reason {
             case 418:return "无效的手机校验码"; //InvalidPhoneVerificationCodeException
             case 419:return "无效的认证类别"; //InvalidCertTypeException
             case 420:return "已经存在认证"; //UserCertAlreadyExistException
+            case 421:return "MongoDB出现错误"; //MongoDbException
+            case 422:return "无法处理文件"; //CanNotHandlerFileException
 
             case 500:return "系统内部错误";
             case 501:return "非关系型数据库出现错误"; //NonRelationalDatabaseException
