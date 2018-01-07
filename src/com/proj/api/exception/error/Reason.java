@@ -37,6 +37,9 @@ public class Reason {
             case 420:return "已经存在认证"; //UserCertAlreadyExistException
             case 421:return "MongoDB出现错误"; //MongoDbException
             case 422:return "无法处理文件"; //CanNotHandlerFileException
+            case 423:return "预留给储存api的错误"; //
+            case 424:return "预留给储存api的错误"; //
+            case 425:return "预留给储存api的错误"; //
 
             case 500:return "系统内部错误";
             case 501:return "非关系型数据库出现错误"; //NonRelationalDatabaseException
